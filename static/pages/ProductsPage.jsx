@@ -1,6 +1,6 @@
 import React from "react";
 import Nav from "../components/Nav.jsx";
-import ProductPage from "./ProductPage.jsx";
+// import ProductPage from "./ProductPage.jsx";
 import { Link } from "react-router-dom";
 
 export default class ProductsPage extends React.Component {
