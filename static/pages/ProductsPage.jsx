@@ -52,7 +52,7 @@ export default class ProductsPage extends React.Component {
             this.state.products.map(function(product, index) {
               return <div className="card col-md-3 offset-md-3 col-sm-4 offset-sm-1" key={index}>
                 <Link to={`/product/${product.key}-${product.slug}`}>
-                  <img className="card-img" src={product.img} alt="Card image cap" />
+                  <img className="card-img" src={`/${product.img}`} alt="Card image cap" />
                 </Link>
                 <div className="card-body-right">
                   <h5 className="card-title">{product.title}</h5>

@@ -16,9 +16,11 @@ export default class ProductPage extends React.Component {
 
   loadData() {
     this.setState({status: 'pending'});
+
     const [key, ...slugArray] = this.props.match.params.product.split('-');
     const slug = slugArray ? slugArray.join('-') : '';
     const params = queryString.stringify({key, slug});
+    
     fetch(`/api/product?${params}`)
       .then(function(response) {
         return response.json();
@@ -67,7 +69,7 @@ export default class ProductPage extends React.Component {
           
         <div className="row">
           <div className="product-image col-3">
-            <img src={this.state.img} alt="Product image"/>
+            <img src={`/${this.state.img}`} alt="Product image"/>
           </div>
           <div className="product-description col-9">
             <p>{this.state.description}</p>

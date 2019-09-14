@@ -20,17 +20,10 @@ module.exports = {
         } else if (where && where.slug) {
             return productCollection.findOne({"slug": where.slug});
         } else {
-        // return new Promise(function(resolve, reject) {
             const cursor = productCollection.find();
             const promise = cursor.toArray();
-            return promise;//.then(function(products) {
-                //resolve(products);
-        // });
+            return promise;
         }
-    },
-
-    getProductByKey(key) {
-        return productCollection.findOne({"key": key});
     },
 
     getProductByID(id) {

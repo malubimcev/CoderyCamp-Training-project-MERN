@@ -33864,9 +33864,11 @@ class ProductPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component
 
   loadData() {
     this.setState({ status: 'pending' });
+
     const [key, ...slugArray] = this.props.match.params.product.split('-');
     const slug = slugArray ? slugArray.join('-') : '';
     const params = queryString.stringify({ key, slug });
+
     fetch(`/api/product?${params}`).then(function (response) {
       return response.json();
     }.bind(this)).then(function (json) {
@@ -33929,7 +33931,7 @@ class ProductPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
             "div",
             { className: "product-image col-3" },
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", { src: this.state.img, alt: "Product image" })
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", { src: `/${this.state.img}`, alt: "Product image" })
           ),
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
             "div",
@@ -34033,7 +34035,7 @@ class ProductsPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
               react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"],
               { to: `/product/${product.key}-${product.slug}` },
-              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", { className: "card-img", src: product.img, alt: "Card image cap" })
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", { className: "card-img", src: `/${product.img}`, alt: "Card image cap" })
             ),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
               "div",
