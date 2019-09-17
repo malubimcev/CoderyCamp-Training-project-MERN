@@ -33748,7 +33748,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _pages_ProductsPage_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/ProductsPage.jsx */ "./static/pages/ProductsPage.jsx");
 /* harmony import */ var _pages_ProductPage_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/ProductPage.jsx */ "./static/pages/ProductPage.jsx");
-/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! history */ "./node_modules/history/esm/history.js");
+/* harmony import */ var _pages_PanelPage_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/PanelPage.jsx */ "./static/pages/PanelPage.jsx");
+/* harmony import */ var _pages_PanelProductsPage_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/PanelProductsPage.jsx */ "./static/pages/PanelProductsPage.jsx");
+/* harmony import */ var _pages_PanelProductPage_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/PanelProductPage.jsx */ "./static/pages/PanelProductPage.jsx");
+/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! history */ "./node_modules/history/esm/history.js");
 
 
 
@@ -33757,7 +33760,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const history = Object(history__WEBPACK_IMPORTED_MODULE_5__["createBrowserHistory"])();
+
+
+
+const history = Object(history__WEBPACK_IMPORTED_MODULE_8__["createBrowserHistory"])();
 
 class App extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   render() {
@@ -33768,8 +33774,11 @@ class App extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
         react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"],
         null,
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], { exact: true, path: "/", component: _pages_ProductsPage_jsx__WEBPACK_IMPORTED_MODULE_3__["default"] }),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], { exact: true, path: "/product/", component: _pages_ProductsPage_jsx__WEBPACK_IMPORTED_MODULE_3__["default"] }),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], { exact: true, path: "/product/:product", component: _pages_ProductPage_jsx__WEBPACK_IMPORTED_MODULE_4__["default"] })
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], { exact: true, path: "/product", component: _pages_ProductsPage_jsx__WEBPACK_IMPORTED_MODULE_3__["default"] }),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], { exact: true, path: "/product/:product", component: _pages_ProductPage_jsx__WEBPACK_IMPORTED_MODULE_4__["default"] }),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], { exact: true, path: "/panel", component: _pages_PanelPage_jsx__WEBPACK_IMPORTED_MODULE_5__["default"] }),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], { exact: true, path: "/panel/product", component: _pages_PanelProductsPage_jsx__WEBPACK_IMPORTED_MODULE_6__["default"] }),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], { exact: true, path: "/panel/product/:id", component: _pages_PanelProductPage_jsx__WEBPACK_IMPORTED_MODULE_7__["default"] })
       )
     );
   }
@@ -33829,6 +33838,564 @@ class Nav extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       })
     );
   }
+}
+
+/***/ }),
+
+/***/ "./static/pages/PanelPage.jsx":
+/*!************************************!*\
+  !*** ./static/pages/PanelPage.jsx ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PanelProductsPage; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_Nav_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Nav.jsx */ "./static/components/Nav.jsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
+
+// import ProductPage from "./ProductPage.jsx";
+
+
+class PanelProductsPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+
+  render() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment,
+      null,
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        "header",
+        { className: "row bg-warning" },
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "nav",
+          { className: "col-md-8 offset-md-2 col-sm-10 offset-sm-1" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Nav_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+            tabs: ["Каталог", "Доставка", "Гарантии", "Контакты"],
+            navClass: "nav"
+          })
+        )
+      ),
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        "main",
+        { className: "row" },
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "div",
+          { className: "col-md-8 offset-md-2 col-sm-10 offset-sm-1 bg-light paper" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "nav",
+            { "aria-label": "breadcrumb" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "ol",
+              { className: "breadcrumb" },
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                "li",
+                { className: "breadcrumb-item" },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                  "a",
+                  { href: "#" },
+                  "Home"
+                )
+              ),
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                "li",
+                { className: "breadcrumb-item" },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                  "a",
+                  { href: "#" },
+                  "Library"
+                )
+              ),
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                "li",
+                { className: "breadcrumb-item active", "aria-current": "page" },
+                "Data"
+              )
+            )
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"],
+            { to: `/panel/product` },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "div",
+              { className: "alert alert-info", role: "alert" },
+              "\u041A\u0430\u0442\u0430\u043B\u043E\u0433 \u0442\u043E\u0432\u0430\u0440\u043E\u0432."
+            )
+          )
+        )
+      ),
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        "footer",
+        { className: "row bg-dark" },
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "div",
+          { className: "col-md-8 offset-md-2 col-sm-10 offset-sm-1" },
+          "\xA9 Codery Camp, 2019"
+        )
+      )
+    );
+  }
+
+}
+
+/***/ }),
+
+/***/ "./static/pages/PanelProductPage.jsx":
+/*!*******************************************!*\
+  !*** ./static/pages/PanelProductPage.jsx ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PanelProductPage; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_Nav_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Nav.jsx */ "./static/components/Nav.jsx");
+
+
+
+const queryString = __webpack_require__(/*! query-string */ "./node_modules/query-string/index.js");
+
+class PanelProductPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      product: {
+        title: 'no title',
+        description: 'no description',
+        img: ''
+      },
+      status: 'idle' // 'idle' | 'pending' | 'ready' | 'error'
+    };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.onSave = this.onSave.bind(this);
+  }
+
+  loadData() {
+    this.setState({ status: 'pending' });
+
+    fetch(`/api/product/${this.props.match.params.id}`).then(function (response) {
+      return response.json();
+    }.bind(this)).then(function (json) {
+      this.setState({
+        product: {
+          key: json.key,
+          slug: json.slug,
+          title: json.title,
+          description: json.description,
+          img: json.img
+        },
+        status: 'ready'
+      });
+    }.bind(this)).catch(function (err) {
+      this.setState({ status: 'error' });
+    }.bind(this));
+  }
+
+  componentDidMount() {
+    this.loadData();
+  }
+
+  handleInputChange(event) {
+    const name = event.target.name;
+    this.state.product[name] = event.target.value;
+    this.forceUpdate();
+  }
+
+  onSave(event) {
+    event.preventDefault();
+    fetch(`/api/product/${this.props.match.params.id}`, {
+      method: "put",
+      body: JSON.stringify(this.state.product),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(res => console.log(res));
+  }
+
+  renderForm() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+      "form",
+      null,
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        "div",
+        { "class": "form-group" },
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "div",
+          { "class": "form-group row" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "label",
+            { "class": "col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label" },
+            "\u041D\u0430\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043D\u0438\u0435 \u0442\u043E\u0432\u0430\u0440\u0430"
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+            name: "title",
+            type: "text",
+            "class": "col-md-8 col-sm-7 form-control form-control-lg",
+            placeholder: "\u041D\u0430\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043D\u0438\u0435 \u0442\u043E\u0432\u0430\u0440\u0430",
+            value: this.state.product.title,
+            onChange: this.handleInputChange
+          })
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "div",
+          { "class": "form-group row" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "label",
+            { "class": "col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label" },
+            "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0442\u043E\u0432\u0430\u0440\u0430"
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+            name: "description"
+            // type="text"
+            , "class": "col-md-8 col-sm-7 form-control form-control-lg",
+            rows: "4",
+            placeholder: "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0442\u043E\u0432\u0430\u0440\u0430",
+            value: this.state.product.description,
+            onChange: this.handleInputChange
+          })
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "div",
+          { "class": "form-group row" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "label",
+            { "class": "col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label" },
+            "\u041A\u043B\u044E\u0447"
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+            name: "key",
+            type: "text",
+            "class": "col-md-8 col-sm-7 form-control form-control-lg",
+            placeholder: "\u041A\u043B\u044E\u0447",
+            value: this.state.product.key,
+            onChange: this.handleInputChange
+          })
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "div",
+          { "class": "form-group row" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "label",
+            { "class": "col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label" },
+            "\u0421\u043B\u0430\u0433"
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+            name: "slug",
+            type: "text",
+            "class": "col-md-8 col-sm-7 form-control form-control-lg",
+            placeholder: "\u0421\u043B\u0430\u0433",
+            value: this.state.product.slug,
+            onChange: this.handleInputChange
+          })
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "div",
+          { className: "row" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "button",
+            { type: "submit", "class": "btn btn-primary col-md-1 offset-md-3", onClick: this.onSave },
+            "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C"
+          )
+        )
+      )
+    );
+  }
+
+  render() {
+    if (this.state.product.status === 'pending') {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        "div",
+        { className: "alert alert-secondary", role: "alert" },
+        "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430..."
+      );
+    }
+    if (this.state.product.status === 'error') {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        "div",
+        { className: "alert alert-danger", role: "alert" },
+        "\u041E\u0448\u0438\u0431\u043A\u0430 \u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0438 \u0442\u043E\u0432\u0430\u0440\u0430."
+      );
+    }
+    if (!this.state.product.title) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        "div",
+        { className: "alert alert-warning", role: "alert" },
+        "\u0422\u043E\u0432\u0430\u0440 \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D."
+      );
+    }
+
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment,
+      null,
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        "div",
+        { className: "product bg-light" },
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "h2",
+          null,
+          this.state.product.title
+        ),
+        this.state.product && this.renderForm(),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Nav_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          tabs: ["Описание", "Характеристики", "Отзывы"],
+          navClass: "nav nav-tabs bg-warning"
+        }),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "div",
+          { className: "row bg-ligt" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "div",
+            { className: "product-image col-3" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", { src: `/${this.state.product.img}`, alt: "Product image" })
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "div",
+            { className: "product-description col-9" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "p",
+              null,
+              this.state.product.description
+            ),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "div",
+              { className: "button-section" },
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                "button",
+                { className: "btn btn-primary" },
+                "\u0417\u0430\u043A\u0430\u0437\u0430\u0442\u044C"
+              )
+            )
+          )
+        )
+      )
+    );
+  }
+}
+
+/***/ }),
+
+/***/ "./static/pages/PanelProductsPage.jsx":
+/*!********************************************!*\
+  !*** ./static/pages/PanelProductsPage.jsx ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PanelProductsPage; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_Nav_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Nav.jsx */ "./static/components/Nav.jsx");
+/* harmony import */ var _ProductCard_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProductCard.jsx */ "./static/pages/ProductCard.jsx");
+
+
+
+
+class PanelProductsPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      products: [],
+      status: 'idle' //'idle', 'pending', 'ready', 'error'
+    };
+  }
+
+  loadData() {
+    this.setState({ status: 'pending' });
+    fetch("/api/product").then(function (response) {
+      return response.json();
+    }.bind(this)).then(function (json) {
+      this.setState({
+        products: json,
+        status: 'ready'
+      });
+    }.bind(this)).catch(function (err) {
+      this.setState({ status: 'error' });
+    }.bind(this));
+  }
+
+  componentDidMount() {
+    this.loadData();
+  }
+
+  renderProducts() {
+    if (this.state.status === 'error') {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        "div",
+        { className: "alert alert-danger", role: "alert" },
+        "\u041E\u0448\u0438\u0431\u043A\u0430 \u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0438 \u0441\u043F\u0438\u0441\u043A\u0430 \u0442\u043E\u0432\u0430\u0440\u043E\u0432."
+      );
+    }
+    if (!this.state.products) {
+      return false;
+    }
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment,
+      null,
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        "div",
+        { className: "alert alert-primary", role: "alert" },
+        "\u0421\u043F\u0438\u0441\u043E\u043A \u0442\u043E\u0432\u0430\u0440\u043E\u0432."
+      ),
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        "div",
+        { className: "card-deck bg-light row mx-auto" },
+        this.state.products.map(function (product) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ProductCard_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], { product: product, route: "panel/product" });
+        })
+      )
+    );
+  }
+
+  render() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment,
+      null,
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        "header",
+        { className: "row bg-warning" },
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "nav",
+          { className: "col-md-8 offset-md-2 col-sm-10 offset-sm-1" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Nav_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+            tabs: ["Каталог", "Доставка", "Гарантии", "Контакты"],
+            navClass: "nav"
+          })
+        )
+      ),
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        "main",
+        { className: "row" },
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "div",
+          { className: "col-md-8 offset-md-2 col-sm-10 offset-sm-1 bg-light paper" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "nav",
+            { "aria-label": "breadcrumb" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "ol",
+              { className: "breadcrumb" },
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                "li",
+                { className: "breadcrumb-item" },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                  "a",
+                  { href: "#" },
+                  "Home"
+                )
+              ),
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                "li",
+                { className: "breadcrumb-item" },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                  "a",
+                  { href: "#" },
+                  "Library"
+                )
+              ),
+              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                "li",
+                { className: "breadcrumb-item active", "aria-current": "page" },
+                "Data"
+              )
+            )
+          ),
+          this.renderProducts()
+        )
+      ),
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        "footer",
+        { className: "row bg-dark" },
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "div",
+          { className: "col-md-8 offset-md-2 col-sm-10 offset-sm-1" },
+          "\xA9 Codery Camp, 2019"
+        )
+      )
+    );
+  }
+
+}
+
+/***/ }),
+
+/***/ "./static/pages/ProductCard.jsx":
+/*!**************************************!*\
+  !*** ./static/pages/ProductCard.jsx ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ProductCard; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
+
+
+class ProductCard extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+
+    render() {
+        const product = this.props.product;
+        const route = this.props.route;
+        const link = route === 'panel/product' ? `${product._id}` : `${product.key}-${product.slug}`;
+
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment,
+            null,
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                "div",
+                { className: "card col-md-3 offset-md-3 col-sm-4 offset-sm-1", key: product.key },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                    react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"],
+                    { to: `/${route}/${link}` },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", { className: "card-img", src: `/${product.img}`, alt: "Card image cap" })
+                ),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                    "div",
+                    { className: "card-body-right" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                        "h5",
+                        { className: "card-title" },
+                        product.title
+                    ),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                        "p",
+                        { className: "card-text" },
+                        product.description
+                    ),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                        "p",
+                        { className: "card-text" },
+                        "\u0426\u0435\u043D\u0430: ",
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            "span",
+                            { className: "card-price" },
+                            product.price,
+                            " \u0440\u0443\u0431."
+                        )
+                    ),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                        react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"],
+                        { to: `/${route}/${link}` },
+                        "\u041A\u0443\u043F\u0438\u0442\u044C"
+                    )
+                )
+            )
+        );
+    }
 }
 
 /***/ }),
@@ -33972,10 +34539,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_Nav_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Nav.jsx */ "./static/components/Nav.jsx");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _ProductCard_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProductCard.jsx */ "./static/pages/ProductCard.jsx");
 
 
-// import ProductPage from "./ProductPage.jsx";
 
 
 class ProductsPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
@@ -34028,46 +34594,8 @@ class ProductsPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
       react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
         "div",
         { className: "card-deck bg-light row mx-auto" },
-        this.state.products.map(function (product, index) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            "div",
-            { className: "card col-md-3 offset-md-3 col-sm-4 offset-sm-1", key: index },
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-              react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"],
-              { to: `/product/${product.key}-${product.slug}` },
-              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", { className: "card-img", src: `/${product.img}`, alt: "Card image cap" })
-            ),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-              "div",
-              { className: "card-body-right" },
-              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                "h5",
-                { className: "card-title" },
-                product.title
-              ),
-              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                "p",
-                { className: "card-text" },
-                product.description
-              ),
-              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                "p",
-                { className: "card-text" },
-                "\u0426\u0435\u043D\u0430: ",
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                  "span",
-                  { className: "card-price" },
-                  product.price,
-                  " \u0440\u0443\u0431."
-                )
-              ),
-              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"],
-                { to: `/product/${product.key}-${product.slug}` },
-                "\u041A\u0443\u043F\u0438\u0442\u044C"
-              )
-            )
-          );
+        this.state.products.map(function (product) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ProductCard_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], { product: product, route: "product" });
         })
       )
     );

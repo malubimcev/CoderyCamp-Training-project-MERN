@@ -93,12 +93,34 @@ const serveOneProduct = function(req, res) {
 
 const staticMiddleware = express.static("public");
 app.use(staticMiddleware);
+const bodyParser = require('body-parser');
+const jsonBodyParser = bodyParser("json");
+app.use(jsonBodyParser);
 
 app.get('/', serveSPA);
 app.get('/product', serveSPA);
 app.get('/product/:key_and_slug', serveSPA);
+
 app.get('/api/product', serveProducts);
 app.get('/api/product/:id', serveOneProduct);
+
+app.get('/panel', serveSPA);//админка
+app.get('/panel/product', serveSPA);
+app.get('/panel/product/:id', serveSPA);
+
+app.put('/api/product/:id', function(req, res) {
+    ProductService.updateProduct(req.params.id, req.body)
+        .then(function(result) {
+            res.json(result);
+        });
+});
+
+app.post('/api/product', function(req, res) {
+    // ProductService.insertProduct(req.body)
+    //     .then(function(result) {
+    //         res.json(result);
+    //     });
+})
 
 app.use(serveNotFound);
 

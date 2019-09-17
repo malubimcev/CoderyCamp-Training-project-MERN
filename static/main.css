@@ -27,19 +27,7 @@ header .nav-link.active {
   width: 12rem;
 }
 
-.card-image,
-.card-img {
-  padding: 20px;
-  min-width: 80px;
-  max-width: 200px;
-}
-
-.product-image {
-  padding: 10px;
-  min-width: 100px;
-  max-width: 200px;
-}
-  
+ 
 .card-image,
 .card-img,
 .product-image {

@@ -2,7 +2,7 @@ import React from "react";
 import Nav from "../components/Nav.jsx";
 import ProductCard from "./ProductCard.jsx";
 
-export default class ProductsPage extends React.Component {
+export default class PanelProductsPage extends React.Component {
 
     constructor(props) {
       super(props);
@@ -49,7 +49,7 @@ export default class ProductsPage extends React.Component {
         <div className="card-deck bg-light row mx-auto">
           {
             this.state.products.map(function(product) {
-              return <ProductCard product={product} route="product" />
+              return <ProductCard product={product} route="panel/product"/>
             })
           }
         </div>
@@ -58,7 +58,7 @@ export default class ProductsPage extends React.Component {
 
     render() {
       return <React.Fragment>
-        <header className="row bg-primary">
+        <header className="row bg-warning">
 
           <nav className="col-md-8 offset-md-2 col-sm-10 offset-sm-1">
             <Nav 

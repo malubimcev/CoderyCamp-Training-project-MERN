@@ -31,5 +31,26 @@ module.exports = {
             return productCollection.findOne({_id: ObjectID(id)});
         }
         return Promise.reject();
+    },
+
+    updateProduct(id, patch) {
+        delete patch._id;
+        productCollection.update(
+            { _id: ObjectID(id) },
+            {
+                $set: patch
+            }
+        )
+        .then(result => {
+            return productCollection.findOne({_id: ObjectID(id)});
+        })
+        .catch(err => {
+            console.log(`Error=${err}`);
+            return null;
+        });
     }
+
+    // insertProduct(patch) {
+        
+    // }
 };
