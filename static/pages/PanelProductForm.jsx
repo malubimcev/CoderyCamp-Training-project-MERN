@@ -6,43 +6,35 @@ export default class PanelProductForm extends React.Component {
     super(props);
     this.state = {
       product: {
+        key: 0,
         title: 'no title',
         description: 'no description',
-        img: ''
+        img: '',
+        slug: ''
       },
-      status: 'idle'// 'idle' | 'pending' | 'ready' | 'error'
+      handler: this.props.submitHandler
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.onSave = this.onSave.bind(this);
   }
 
-  loadData() {
-    this.setState({status: 'pending'});
-    
-    fetch(`/api/product/${this.props.match.params.id}`)
-      .then(function(response) {
-        return response.json();
-      }.bind(this))
-      .then(function(json) {
-        this.setState({
-          product: {
-            key: json.key,
-            slug: json.slug,
-            title: json.title,
-            description: json.description,
-            img: json.img
-          },
-          status: 'ready'
-        });
-      }.bind(this))
-      .catch(function(err){
-        this.setState({status: 'error'});
-      }.bind(this));
+  setData(product) {
+    if (product.key) {
+      this.setState({
+        product: {
+          key: product.key,
+          slug: product.slug,
+          title: product.title,
+          description: product.description,
+          img: product.img
+        }
+      });
+    }
   }
   
   componentDidMount() {
-    this.loadData();
+    this.setData(this.props.product);
   }
 
   handleInputChange(event) {
@@ -53,17 +45,10 @@ export default class PanelProductForm extends React.Component {
 
   onSave(event) {
     event.preventDefault();
-    fetch(`/api/product/${this.props.match.params.id}`, {
-      method: "put",
-      body: JSON.stringify(this.state.product),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(res => console.log(res));
+    this.state.handler(this.state.product);
   }
 
-  renderForm() {
+  render() {
     return <form>
         <div class="form-group">
           <div class="form-group row">
@@ -81,7 +66,6 @@ export default class PanelProductForm extends React.Component {
             <label class="col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label">Описание товара</label>
             <textarea
               name="description"
-              // type="text"
               class="col-md-8 col-sm-7 form-control form-control-lg"
               rows="4"
               placeholder="Описание товара"
@@ -117,47 +101,5 @@ export default class PanelProductForm extends React.Component {
         </div>
       </form>
   }
-  
-  render() {
-    if (this.state.product.status === 'pending') {
-      return <div className="alert alert-secondary" role="alert">
-        Загрузка...
-      </div>;
-    }
-    if (this.state.product.status === 'error') {
-      return <div className="alert alert-danger" role="alert">
-        Ошибка загрузки товара.
-      </div>;
-    }
-    if (!this.state.product.title) {
-      return <div className="alert alert-warning" role="alert">
-        Товар не найден.
-      </div>;
-    }
 
-    return <React.Fragment>
-      <div className="product bg-light">
-        <h2>{this.state.product.title}</h2>
-
-        { this.state.product && this.renderForm() }
-
-        <Nav 
-          tabs={["Описание", "Характеристики", "Отзывы"]}
-          navClass={"nav nav-tabs bg-warning"}
-        />
-
-        <div className="row bg-ligt">
-          <div className="product-image col-3">
-            <img src={`/${this.state.product.img}`} alt="Product image"/>
-          </div>
-          <div className="product-description col-9">
-            <p>{this.state.product.description}</p>
-            <div className="button-section">
-              <button className="btn btn-primary">Заказать</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </React.Fragment>
-  }
 }
