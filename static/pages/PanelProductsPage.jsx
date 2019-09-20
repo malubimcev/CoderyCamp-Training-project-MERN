@@ -1,15 +1,29 @@
 import React from "react";
 import Nav from "../components/Nav.jsx";
 import ProductCard from "./ProductCard.jsx";
+import PanelProductForm from "./PanelProductForm.jsx";
 
 export default class PanelProductsPage extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       products: [],
+      newProduct: {
+        key: 0,
+        slug: '',
+        title: '',
+        description: '',
+        img: '',
+        price: 0 
+      },
       status: 'idle'//'idle', 'pending', 'ready', 'error'
     }
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.onSave = this.onSave.bind(this);
+    this.loadData = this.loadData.bind(this);
   }
 
   loadData() {
@@ -17,7 +31,7 @@ export default class PanelProductsPage extends React.Component {
     fetch("/api/product")
       .then(function(response) {
         return response.json();
-      }.bind(this))
+      })
       .then(function(json) {
         this.setState({
           products: json,
@@ -30,7 +44,50 @@ export default class PanelProductsPage extends React.Component {
   }
 
   componentDidMount() {
-      this.loadData();
+    this.loadData();
+  }
+
+  handleInputChange(event) {
+    const name = event.target.name;
+    this.state.newProduct[name] = event.target.value;
+    this.forceUpdate();
+  }
+
+  onSave(event) {
+    event.preventDefault();
+    console.log(JSON.stringify(this.state.newProduct));
+    fetch(`/api/product`, {
+      method: "post",
+      body: JSON.stringify(this.state.newProduct),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(function(response) {
+        return response.json();
+      }.bind(this))
+      .then(json => {
+        this.setState({
+          newProduct: {
+            key: json.key,
+            slug: json.slug,
+            title: json.title,
+            description: json.description,
+            img: json.img,
+            price: json.price
+          }
+        }.bind(this));
+        this.state.products.push(newProduct);
+        this.forceUpdate();
+      });
+  }
+
+  renderFormComponent() {
+    return <PanelProductForm 
+      product={this.state.newProduct}
+      changeHandler={this.handleInputChange}
+      submitHandler={this.onSave}
+    />
   }
 
   renderProducts() {
@@ -49,66 +106,11 @@ export default class PanelProductsPage extends React.Component {
       <div className="card-deck bg-light row mx-auto">
         {
           this.state.products.map(function(product) {
-            return <ProductCard product={product} route="panel/product"/>
+            return <ProductCard product={product} route="panel/product" key={product._id}/>
           })
         }
       </div>
     </React.Fragment>
-  }
-
-  renderForm() {
-    return <form>
-        <div class="form-group">
-          <div class="form-group row">
-            <label class="col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label">Наименование товара</label>
-            <input
-              name="title"
-              type="text"
-              class="col-md-8 col-sm-7 form-control form-control-lg"
-              placeholder="Наименование товара"
-              value={this.state.product.title}
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div class="form-group row">        
-            <label class="col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label">Описание товара</label>
-            <textarea
-              name="description"
-              // type="text"
-              class="col-md-8 col-sm-7 form-control form-control-lg"
-              rows="4"
-              placeholder="Описание товара"
-              value={this.state.product.description}
-              onChange={this.handleInputChange}
-            ></textarea>
-          </div>
-          <div class="form-group row"> 
-            <label class="col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label">Ключ</label>
-            <input
-              name="key"
-              type="text"
-              class="col-md-8 col-sm-7 form-control form-control-lg"
-              placeholder="Ключ"
-              value={this.state.product.key}
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div class="form-group row">           
-            <label class="col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label">Слаг</label>
-            <input
-              name="slug"
-              type="text"
-              class="col-md-8 col-sm-7 form-control form-control-lg"
-              placeholder="Слаг"
-              value={this.state.product.slug}
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div className="row">
-            <button type="submit" class="btn btn-primary col-md-1 offset-md-3" onClick={this.onSave}>Сохранить</button>
-          </div>
-        </div>
-      </form>
   }
 
   render() {
@@ -136,7 +138,8 @@ export default class PanelProductsPage extends React.Component {
             </ol>
           </nav>
 
-          { this.state.product && this.renderForm() }
+          {/* { this.renderForm() } */}
+          { this.renderFormComponent() }
           { this.renderProducts() }
         
         </div>  

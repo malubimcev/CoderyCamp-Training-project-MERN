@@ -7,27 +7,30 @@ export default class PanelProductForm extends React.Component {
     this.state = {
       product: {
         key: 0,
-        title: 'no title',
-        description: 'no description',
+        title: '',
+        description: '',
         img: '',
-        slug: ''
+        slug: '',
+        price: 0
       },
-      handler: this.props.submitHandler
+      submitHandler: this.props.submitHandler,
+      changeHandler: this.props.changeHandler
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.onSave = this.onSave.bind(this);
   }
 
-  setData(product) {
-    if (product.key) {
+  setData(data) {
+    if (data.key) {
       this.setState({
         product: {
-          key: product.key,
-          slug: product.slug,
-          title: product.title,
-          description: product.description,
-          img: product.img
+          key: data.key,
+          slug: data.slug,
+          title: data.title,
+          description: data.description,
+          img: data.img,
+          price: data.price
         }
       });
     }
@@ -41,65 +44,77 @@ export default class PanelProductForm extends React.Component {
     const name = event.target.name;
     this.state.product[name] = event.target.value;
     this.forceUpdate();
+    this.state.changeHandler(event);
   }
 
   onSave(event) {
     event.preventDefault();
-    this.state.handler(this.state.product);
+    this.state.submitHandler(event);
   }
 
   render() {
     return <form>
-        <div class="form-group">
-          <div class="form-group row">
-            <label class="col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label">Наименование товара</label>
-            <input
-              name="title"
-              type="text"
-              class="col-md-8 col-sm-7 form-control form-control-lg"
-              placeholder="Наименование товара"
-              value={this.state.product.title}
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div class="form-group row">        
-            <label class="col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label">Описание товара</label>
-            <textarea
-              name="description"
-              class="col-md-8 col-sm-7 form-control form-control-lg"
-              rows="4"
-              placeholder="Описание товара"
-              value={this.state.product.description}
-              onChange={this.handleInputChange}
-            ></textarea>
-          </div>
-          <div class="form-group row"> 
-            <label class="col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label">Ключ</label>
-            <input
-              name="key"
-              type="text"
-              class="col-md-8 col-sm-7 form-control form-control-lg"
-              placeholder="Ключ"
-              value={this.state.product.key}
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div class="form-group row">           
-            <label class="col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label">Слаг</label>
-            <input
-              name="slug"
-              type="text"
-              class="col-md-8 col-sm-7 form-control form-control-lg"
-              placeholder="Слаг"
-              value={this.state.product.slug}
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div className="row">
-            <button type="submit" class="btn btn-primary col-md-1 offset-md-3" onClick={this.onSave}>Сохранить</button>
-          </div>
+      <div className="form-group">
+        <div className="form-group row">
+          <label className="col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label">Наименование товара</label>
+          <input
+            name="title"
+            type="text"
+            className="col-md-8 col-sm-7 form-control form-control-lg"
+            placeholder="Наименование товара"
+            value={this.state.product.title}
+            onChange={this.handleInputChange}
+          />
         </div>
-      </form>
+        <div className="form-group row">        
+          <label className="col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label">Описание товара</label>
+          <textarea
+            name="description"
+            className="col-md-8 col-sm-7 form-control form-control-lg"
+            rows="4"
+            placeholder="Описание товара"
+            value={this.state.product.description}
+            onChange={this.handleInputChange}
+          ></textarea>
+        </div>
+        <div className="form-group row"> 
+          <label className="col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label">Ключ</label>
+          <input
+            name="key"
+            type="text"
+            className="col-md-8 col-sm-7 form-control form-control-lg"
+            placeholder="Ключ"
+            value={this.state.product.key}
+            onChange={this.handleInputChange}
+          />
+        </div>
+        <div className="form-group row">           
+          <label className="col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label">Слаг</label>
+          <input
+            name="slug"
+            type="text"
+            className="col-md-8 col-sm-7 form-control form-control-lg"
+            placeholder="Слаг"
+            value={this.state.product.slug}
+            onChange={this.handleInputChange}
+          />
+        </div>
+        <div className="form-group row">           
+          <label className="col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label">Цена</label>
+          <input
+            name="price"
+            type="text"
+            className="col-md-8 col-sm-7 form-control form-control-lg"
+            placeholder="Цена"
+            value={this.state.product.price}
+            onChange={this.handleInputChange}
+          />
+        </div>
+        <div className="row">
+          <button type="submit" className="btn btn-primary col-md-1 offset-md-3" onClick={this.onSave}>Сохранить</button>
+        </div>
+      </div>
+    </form>    
   }
 
 }

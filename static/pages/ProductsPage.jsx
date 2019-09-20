@@ -49,7 +49,7 @@ export default class ProductsPage extends React.Component {
         <div className="card-deck bg-light row mx-auto">
           {
             this.state.products.map(function(product) {
-              return <ProductCard product={product} route="product" />
+              return <ProductCard product={product} route="product" key={product._id} />
             })
           }
         </div>

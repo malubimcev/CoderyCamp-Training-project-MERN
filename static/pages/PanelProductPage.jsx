@@ -1,7 +1,6 @@
 import React from "react";
 import Nav from "../components/Nav.jsx";
-
-// const queryString = require('query-string');
+import PanelProductForm from "./PanelProductForm.jsx";
 
 export default class PanelProductPage extends React.Component {
 
@@ -9,9 +8,12 @@ export default class PanelProductPage extends React.Component {
     super(props);
     this.state = {
       product: {
-        title: 'no title',
-        description: 'no description',
-        img: ''
+        key: 0,
+        slug: '',
+        title: '',
+        description: '',
+        img: '',
+        price: 0
       },
       status: 'idle'// 'idle' | 'pending' | 'ready' | 'error'
     }
@@ -34,7 +36,8 @@ export default class PanelProductPage extends React.Component {
             slug: json.slug,
             title: json.title,
             description: json.description,
-            img: json.img
+            img: json.img,
+            price: json.price
           },
           status: 'ready'
         });
@@ -66,61 +69,14 @@ export default class PanelProductPage extends React.Component {
       .then(res => console.log(res));
   }
 
-  renderForm() {
-    return <form>
-        <div class="form-group">
-          <div class="form-group row">
-            <label class="col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label">Наименование товара</label>
-            <input
-              name="title"
-              type="text"
-              class="col-md-8 col-sm-7 form-control form-control-lg"
-              placeholder="Наименование товара"
-              value={this.state.product.title}
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div class="form-group row">        
-            <label class="col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label">Описание товара</label>
-            <textarea
-              name="description"
-              // type="text"
-              class="col-md-8 col-sm-7 form-control form-control-lg"
-              rows="4"
-              placeholder="Описание товара"
-              value={this.state.product.description}
-              onChange={this.handleInputChange}
-            ></textarea>
-          </div>
-          <div class="form-group row"> 
-            <label class="col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label">Ключ</label>
-            <input
-              name="key"
-              type="text"
-              class="col-md-8 col-sm-7 form-control form-control-lg"
-              placeholder="Ключ"
-              value={this.state.product.key}
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div class="form-group row">           
-            <label class="col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label">Слаг</label>
-            <input
-              name="slug"
-              type="text"
-              class="col-md-8 col-sm-7 form-control form-control-lg"
-              placeholder="Слаг"
-              value={this.state.product.slug}
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div className="row">
-            <button type="submit" class="btn btn-primary col-md-1 offset-md-3" onClick={this.onSave}>Сохранить</button>
-          </div>
-        </div>
-      </form>
+  renderFormComponent() {
+    return <PanelProductForm 
+      product={this.state.product}
+      changeHandler={this.handleInputChange}
+      submitHandler={this.onSave}
+    />
   }
-  
+
   render() {
     if (this.state.product.status === 'pending') {
       return <div className="alert alert-secondary" role="alert">
@@ -142,7 +98,7 @@ export default class PanelProductPage extends React.Component {
       <div className="product bg-light">
         <h2>{this.state.product.title}</h2>
 
-        { this.state.product && this.renderForm() }
+        { this.state.product && this.renderFormComponent() }
 
         <Nav 
           tabs={["Описание", "Характеристики", "Отзывы"]}

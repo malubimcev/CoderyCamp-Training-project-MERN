@@ -2,6 +2,8 @@ const fs = require('fs');
 const express = require('express');
 const app = express();
 const ProductService = require("./ProductService.js");
+const bodyParser = require('body-parser');
+
 const port = '3000';
 // const port = process.env.PORT;
 
@@ -93,7 +95,7 @@ const serveOneProduct = function(req, res) {
 
 const staticMiddleware = express.static("public");
 app.use(staticMiddleware);
-const bodyParser = require('body-parser');
+
 const jsonBodyParser = bodyParser("json");
 app.use(jsonBodyParser);
 
@@ -116,11 +118,11 @@ app.put('/api/product/:id', function(req, res) {
 });
 
 app.post('/api/product', function(req, res) {
-    // ProductService.insertProduct(req.body)
-    //     .then(function(result) {
-    //         res.json(result);
-    //     });
-})
+    ProductService.insertProduct(req.body)
+        .then(function(result) {
+            res.json(result);
+        });
+});
 
 app.use(serveNotFound);
 

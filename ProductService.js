@@ -48,9 +48,17 @@ module.exports = {
             console.log(`Error=${err}`);
             return null;
         });
-    }
+    },
 
-    // insertProduct(patch) {
-        
-    // }
-};
+    insertProduct(product) {
+        productCollection.insertOne({ product })
+            .then(result => {
+                const insertedItem = result.ops[0];
+                return insertedItem;
+            })
+            .catch(err => {
+                console.log(`Error=${err}`);
+                return null;
+            });        
+    }
+}

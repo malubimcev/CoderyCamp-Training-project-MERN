@@ -9,7 +9,7 @@ export default class ProductCard extends React.Component {
         const link = route === 'panel/product' ? `${product._id}` : `${product.key}-${product.slug}`
 
         return <React.Fragment>
-             <div className="card col-md-3 offset-md-3 col-sm-4 offset-sm-1" key={product.key}>
+             <div className="card col-md-3 offset-md-3 col-sm-4 offset-sm-1">
                 <Link to={`/${route}/${link}`}>
                     <img className="card-img" src={`/${product.img}`} alt="Card image cap" />
                 </Link>
