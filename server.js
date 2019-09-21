@@ -12,7 +12,7 @@ app.listen(port, function() {
 });
 
 const serveNotFound = function(req, res) {
-    fs.readFile("./static/page404.html", function(err, data) {
+    fs.readFile("./static/page404.html", (err, data) => {
         if (err) {
             res.statusCode = 500;
             res.send(`Внутренняя ошибка сервера: ${err}`);
@@ -26,7 +26,7 @@ const serveNotFound = function(req, res) {
 }
 
 const serveSPA = function(req, res) {
-    fs.readFile("./public/spa.html", function(err, data) {
+    fs.readFile("./public/spa.html", (err, data) => {
         if (err) {
             return serveNotFound(req, res);
         }
@@ -110,18 +110,19 @@ app.get('/panel', serveSPA);//админка
 app.get('/panel/product', serveSPA);
 app.get('/panel/product/:id', serveSPA);
 
-app.put('/api/product/:id', function(req, res) {
-    ProductService.updateProduct(req.params.id, req.body)
-        .then(function(result) {
-            res.json(result);
-        });
+app.put('/api/product/:id', (req, res) => {
+    const result = ProductService.updateProduct(req.params.id, req.body);
+    res.json(result);
 });
 
-app.post('/api/product', function(req, res) {
-    ProductService.insertProduct(req.body)
-        .then(function(result) {
-            res.json(result);
-        });
+app.post('/api/product', (req, res) => {
+    const result = ProductService.insertProduct(req.body);
+    res.json(result);
+});
+
+app.delete('/api/product/:id', (req, res) => {
+    ProductService.removeProduct(req.body)
+        .then(result => res.json(result));
 });
 
 app.use(serveNotFound);

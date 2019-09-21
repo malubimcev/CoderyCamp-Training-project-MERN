@@ -45,19 +45,30 @@ module.exports = {
             return productCollection.findOne({_id: ObjectID(id)});
         })
         .catch(err => {
-            console.log(`Error=${err}`);
+            console.log(`Error=${err.message}`);
             return null;
         });
     },
 
     insertProduct(product) {
-        productCollection.insertOne({ product })
+        productCollection.insertOne(product)
             .then(result => {
                 const insertedItem = result.ops[0];
                 return insertedItem;
             })
             .catch(err => {
-                console.log(`Error=${err}`);
+                console.log(`Error=${err.message}`);
+                return null;
+            });        
+    },
+
+    removeProduct(product) {
+        productCollection.remove({"key": product.key})
+            .then(result => {
+                return result.nRemoved === 1 ? true : false;
+            })
+            .catch(err => {
+                console.log(`Error=${err.message}`);
                 return null;
             });        
     }

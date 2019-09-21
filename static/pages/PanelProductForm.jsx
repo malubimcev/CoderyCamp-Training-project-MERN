@@ -56,7 +56,7 @@ export default class PanelProductForm extends React.Component {
     return <form>
       <div className="form-group">
         <div className="form-group row">
-          <label className="col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label">Наименование товара</label>
+          <label className="col-md-2 offset-md-1 col-sm-1 offset-sm-1 col-form-label">Наименование товара</label>
           <input
             name="title"
             type="text"
@@ -67,7 +67,7 @@ export default class PanelProductForm extends React.Component {
           />
         </div>
         <div className="form-group row">        
-          <label className="col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label">Описание товара</label>
+          <label className="col-md-2 offset-md-1 col-sm-1 offset-sm-1 col-form-label">Описание товара</label>
           <textarea
             name="description"
             className="col-md-8 col-sm-7 form-control form-control-lg"
@@ -78,7 +78,7 @@ export default class PanelProductForm extends React.Component {
           ></textarea>
         </div>
         <div className="form-group row"> 
-          <label className="col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label">Ключ</label>
+          <label className="col-md-2 offset-md-1 col-sm-1 offset-sm-1 col-form-label">Ключ</label>
           <input
             name="key"
             type="text"
@@ -89,7 +89,7 @@ export default class PanelProductForm extends React.Component {
           />
         </div>
         <div className="form-group row">           
-          <label className="col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label">Слаг</label>
+          <label className="col-md-2 offset-md-1 col-sm-1 offset-sm-1 col-form-label">Слаг</label>
           <input
             name="slug"
             type="text"
@@ -100,7 +100,7 @@ export default class PanelProductForm extends React.Component {
           />
         </div>
         <div className="form-group row">           
-          <label className="col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label">Цена</label>
+          <label className="col-md-2 offset-md-1 col-sm-1 offset-sm-1 col-form-label">Цена</label>
           <input
             name="price"
             type="text"

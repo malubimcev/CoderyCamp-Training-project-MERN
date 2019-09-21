@@ -29,18 +29,17 @@ export default class PanelProductsPage extends React.Component {
   loadData() {
     this.setState({status: 'pending'});
     fetch("/api/product")
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(json) {
+      .then(res => res.json())
+      .then(json => {
         this.setState({
           products: json,
           status: 'ready'
         });
-      }.bind(this))
-      .catch(function(err){
+      })
+      .catch(err => {
         this.setState({status: 'error'});
-      }.bind(this));
+        console.log(err.message);
+      });
   }
 
   componentDidMount() {
@@ -53,9 +52,22 @@ export default class PanelProductsPage extends React.Component {
     this.forceUpdate();
   }
 
+  clearNewProduct() {
+    this.setState({
+      newProduct: {
+        key: 0,
+        slug: '',
+        title: '',
+        description: '',
+        img: '',
+        price: 0
+      }
+    });
+    this.forceUpdate();
+  }
+
   onSave(event) {
     event.preventDefault();
-    console.log(JSON.stringify(this.state.newProduct));
     fetch(`/api/product`, {
       method: "post",
       body: JSON.stringify(this.state.newProduct),
@@ -63,9 +75,7 @@ export default class PanelProductsPage extends React.Component {
         "Content-Type": "application/json"
       }
     })
-      .then(function(response) {
-        return response.json();
-      }.bind(this))
+      .then(res => res.json())
       .then(json => {
         this.setState({
           newProduct: {
@@ -76,9 +86,16 @@ export default class PanelProductsPage extends React.Component {
             img: json.img,
             price: json.price
           }
-        }.bind(this));
-        this.state.products.push(newProduct);
-        this.forceUpdate();
+        });
+        this.state.products.push(this.state.newProduct);
+        // this.forceUpdate();
+        this.clearNewProduct();
+      })
+      .catch(err => {
+        this.setState({
+          status: 'error'
+        });
+        console.log(err.message);
       });
   }
 
@@ -116,19 +133,16 @@ export default class PanelProductsPage extends React.Component {
   render() {
     return <React.Fragment>
       <header className="row bg-warning">
-
-        <nav className="col-md-8 offset-md-2 col-sm-10 offset-sm-1">
+        <nav className="col-md-10 offset-md-1 col-sm-12">
           <Nav 
             tabs={["Каталог", "Доставка", "Гарантии", "Контакты"]}
             navClass="nav"
           />
         </nav>
-        
       </header>
       
       <main className="row">
-
-        <div className="col-md-8 offset-md-2 col-sm-10 offset-sm-1 bg-light paper">
+        <div className="col-md-10 offset-md-1 col-sm-12 bg-light paper">
 
           <nav aria-label="breadcrumb">
             <ol className="breadcrumb">
@@ -138,16 +152,14 @@ export default class PanelProductsPage extends React.Component {
             </ol>
           </nav>
 
-          {/* { this.renderForm() } */}
           { this.renderFormComponent() }
           { this.renderProducts() }
         
         </div>  
-
       </main>
       
       <footer className="row bg-dark">
-        <div className="col-md-8 offset-md-2 col-sm-10 offset-sm-1">
+        <div className="col-md-10 offset-md-1 col-sm-12">
           &copy; Codery Camp, 2019
         </div>
       </footer>

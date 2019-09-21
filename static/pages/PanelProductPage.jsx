@@ -26,10 +26,8 @@ export default class PanelProductPage extends React.Component {
     this.setState({status: 'pending'});
     
     fetch(`/api/product/${this.props.match.params.id}`)
-      .then(function(response) {
-        return response.json();
-      }.bind(this))
-      .then(function(json) {
+      .then(response => response.json())
+      .then(json => {
         this.setState({
           product: {
             key: json.key,
@@ -41,10 +39,11 @@ export default class PanelProductPage extends React.Component {
           },
           status: 'ready'
         });
-      }.bind(this))
-      .catch(function(err){
+      })
+      .catch(err => {
         this.setState({status: 'error'});
-      }.bind(this));
+        console.log(err.message);
+      });
   }
   
   componentDidMount() {
@@ -66,7 +65,7 @@ export default class PanelProductPage extends React.Component {
         "Content-Type": "application/json"
       }
     })
-      .then(res => console.log(res));
+      .then(res => this.forceUpdate());
   }
 
   renderFormComponent() {

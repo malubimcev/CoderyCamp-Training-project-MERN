@@ -6,7 +6,7 @@ export default class ProductCard extends React.Component {
     render() {
         const product = this.props.product;
         const route = this.props.route;
-        const link = route === 'panel/product' ? `${product._id}` : `${product.key}-${product.slug}`
+        const link = route === 'panel/product' ? `${product._id}` : `${product.key}-${product.slug}`;
 
         return <React.Fragment>
              <div className="card col-md-3 offset-md-3 col-sm-4 offset-sm-1">
