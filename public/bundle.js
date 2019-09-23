@@ -33943,6 +33943,181 @@ class PanelProductsPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Com
 
 /***/ }),
 
+/***/ "./static/pages/PanelProductForm.jsx":
+/*!*******************************************!*\
+  !*** ./static/pages/PanelProductForm.jsx ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PanelProductForm; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+class PanelProductForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      product: {
+        key: 0,
+        title: '',
+        description: '',
+        img: '',
+        slug: '',
+        price: 0
+      },
+      submitHandler: this.props.submitHandler,
+      changeHandler: this.props.changeHandler
+    };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.onSave = this.onSave.bind(this);
+  }
+
+  setData(data) {
+    if (data.key) {
+      this.setState({
+        product: {
+          key: data.key,
+          slug: data.slug,
+          title: data.title,
+          description: data.description,
+          img: data.img,
+          price: data.price
+        }
+      });
+    }
+  }
+
+  componentDidMount() {
+    this.setData(this.props.product);
+  }
+
+  handleInputChange(event) {
+    const name = event.target.name;
+    this.state.product[name] = event.target.value;
+    this.forceUpdate();
+    this.state.changeHandler(event);
+  }
+
+  onSave(event) {
+    event.preventDefault();
+    this.state.submitHandler(event);
+  }
+
+  render() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+      'form',
+      null,
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        'div',
+        { className: 'form-group' },
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          'div',
+          { className: 'form-group row' },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            'label',
+            { className: 'col-md-2 offset-md-1 col-sm-1 offset-sm-1 col-form-label' },
+            '\u041D\u0430\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043D\u0438\u0435 \u0442\u043E\u0432\u0430\u0440\u0430'
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement('input', {
+            name: 'title',
+            type: 'text',
+            className: 'col-md-8 col-sm-7 form-control form-control-lg',
+            placeholder: '\u041D\u0430\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043D\u0438\u0435 \u0442\u043E\u0432\u0430\u0440\u0430',
+            value: this.state.product.title,
+            onChange: this.handleInputChange
+          })
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          'div',
+          { className: 'form-group row' },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            'label',
+            { className: 'col-md-2 offset-md-1 col-sm-1 offset-sm-1 col-form-label' },
+            '\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0442\u043E\u0432\u0430\u0440\u0430'
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement('textarea', {
+            name: 'description',
+            className: 'col-md-8 col-sm-7 form-control form-control-lg',
+            rows: '4',
+            placeholder: '\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0442\u043E\u0432\u0430\u0440\u0430',
+            value: this.state.product.description,
+            onChange: this.handleInputChange
+          })
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          'div',
+          { className: 'form-group row' },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            'label',
+            { className: 'col-md-2 offset-md-1 col-sm-1 offset-sm-1 col-form-label' },
+            '\u041A\u043B\u044E\u0447'
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement('input', {
+            name: 'key',
+            type: 'text',
+            className: 'col-md-8 col-sm-7 form-control form-control-lg',
+            placeholder: '\u041A\u043B\u044E\u0447',
+            value: this.state.product.key,
+            onChange: this.handleInputChange
+          })
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          'div',
+          { className: 'form-group row' },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            'label',
+            { className: 'col-md-2 offset-md-1 col-sm-1 offset-sm-1 col-form-label' },
+            '\u0421\u043B\u0430\u0433'
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement('input', {
+            name: 'slug',
+            type: 'text',
+            className: 'col-md-8 col-sm-7 form-control form-control-lg',
+            placeholder: '\u0421\u043B\u0430\u0433',
+            value: this.state.product.slug,
+            onChange: this.handleInputChange
+          })
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          'div',
+          { className: 'form-group row' },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            'label',
+            { className: 'col-md-2 offset-md-1 col-sm-1 offset-sm-1 col-form-label' },
+            '\u0426\u0435\u043D\u0430'
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement('input', {
+            name: 'price',
+            type: 'text',
+            className: 'col-md-8 col-sm-7 form-control form-control-lg',
+            placeholder: '\u0426\u0435\u043D\u0430',
+            value: this.state.product.price,
+            onChange: this.handleInputChange
+          })
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          'div',
+          { className: 'row' },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            'button',
+            { type: 'submit', className: 'btn btn-primary col-md-1 offset-md-3', onClick: this.onSave },
+            '\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C'
+          )
+        )
+      )
+    );
+  }
+
+}
+
+/***/ }),
+
 /***/ "./static/pages/PanelProductPage.jsx":
 /*!*******************************************!*\
   !*** ./static/pages/PanelProductPage.jsx ***!
@@ -33956,10 +34131,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_Nav_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Nav.jsx */ "./static/components/Nav.jsx");
+/* harmony import */ var _PanelProductForm_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PanelProductForm.jsx */ "./static/pages/PanelProductForm.jsx");
 
 
 
-const queryString = __webpack_require__(/*! query-string */ "./node_modules/query-string/index.js");
 
 class PanelProductPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
 
@@ -33967,9 +34142,12 @@ class PanelProductPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Comp
     super(props);
     this.state = {
       product: {
-        title: 'no title',
-        description: 'no description',
-        img: ''
+        key: 0,
+        slug: '',
+        title: '',
+        description: '',
+        img: '',
+        price: 0
       },
       status: 'idle' // 'idle' | 'pending' | 'ready' | 'error'
     };
@@ -33981,22 +34159,22 @@ class PanelProductPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Comp
   loadData() {
     this.setState({ status: 'pending' });
 
-    fetch(`/api/product/${this.props.match.params.id}`).then(function (response) {
-      return response.json();
-    }.bind(this)).then(function (json) {
+    fetch(`/api/product/${this.props.match.params.id}`).then(response => response.json()).then(json => {
       this.setState({
         product: {
           key: json.key,
           slug: json.slug,
           title: json.title,
           description: json.description,
-          img: json.img
+          img: json.img,
+          price: json.price
         },
         status: 'ready'
       });
-    }.bind(this)).catch(function (err) {
+    }).catch(err => {
       this.setState({ status: 'error' });
-    }.bind(this));
+      console.log(err.message);
+    });
   }
 
   componentDidMount() {
@@ -34017,96 +34195,15 @@ class PanelProductPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Comp
       headers: {
         "Content-Type": "application/json"
       }
-    }).then(res => console.log(res));
+    }).then(res => this.forceUpdate());
   }
 
-  renderForm() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-      "form",
-      null,
-      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-        "div",
-        { "class": "form-group" },
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "div",
-          { "class": "form-group row" },
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            "label",
-            { "class": "col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label" },
-            "\u041D\u0430\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043D\u0438\u0435 \u0442\u043E\u0432\u0430\u0440\u0430"
-          ),
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-            name: "title",
-            type: "text",
-            "class": "col-md-8 col-sm-7 form-control form-control-lg",
-            placeholder: "\u041D\u0430\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043D\u0438\u0435 \u0442\u043E\u0432\u0430\u0440\u0430",
-            value: this.state.product.title,
-            onChange: this.handleInputChange
-          })
-        ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "div",
-          { "class": "form-group row" },
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            "label",
-            { "class": "col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label" },
-            "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0442\u043E\u0432\u0430\u0440\u0430"
-          ),
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
-            name: "description"
-            // type="text"
-            , "class": "col-md-8 col-sm-7 form-control form-control-lg",
-            rows: "4",
-            placeholder: "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0442\u043E\u0432\u0430\u0440\u0430",
-            value: this.state.product.description,
-            onChange: this.handleInputChange
-          })
-        ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "div",
-          { "class": "form-group row" },
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            "label",
-            { "class": "col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label" },
-            "\u041A\u043B\u044E\u0447"
-          ),
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-            name: "key",
-            type: "text",
-            "class": "col-md-8 col-sm-7 form-control form-control-lg",
-            placeholder: "\u041A\u043B\u044E\u0447",
-            value: this.state.product.key,
-            onChange: this.handleInputChange
-          })
-        ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "div",
-          { "class": "form-group row" },
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            "label",
-            { "class": "col-md-1 offset-md-2 col-sm-1 offset-sm-1 col-form-label" },
-            "\u0421\u043B\u0430\u0433"
-          ),
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-            name: "slug",
-            type: "text",
-            "class": "col-md-8 col-sm-7 form-control form-control-lg",
-            placeholder: "\u0421\u043B\u0430\u0433",
-            value: this.state.product.slug,
-            onChange: this.handleInputChange
-          })
-        ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "div",
-          { className: "row" },
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            "button",
-            { type: "submit", "class": "btn btn-primary col-md-1 offset-md-3", onClick: this.onSave },
-            "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C"
-          )
-        )
-      )
-    );
+  renderFormComponent() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PanelProductForm_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      product: this.state.product,
+      changeHandler: this.handleInputChange,
+      submitHandler: this.onSave
+    });
   }
 
   render() {
@@ -34143,7 +34240,7 @@ class PanelProductPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Comp
           null,
           this.state.product.title
         ),
-        this.state.product && this.renderForm(),
+        this.state.product && this.renderFormComponent(),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Nav_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
           tabs: ["Описание", "Характеристики", "Отзывы"],
           navClass: "nav nav-tabs bg-warning"
@@ -34196,6 +34293,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_Nav_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Nav.jsx */ "./static/components/Nav.jsx");
 /* harmony import */ var _ProductCard_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProductCard.jsx */ "./static/pages/ProductCard.jsx");
+/* harmony import */ var _PanelProductForm_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PanelProductForm.jsx */ "./static/pages/PanelProductForm.jsx");
+
 
 
 
@@ -34204,28 +34303,98 @@ class PanelProductsPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Com
 
   constructor(props) {
     super(props);
+
     this.state = {
       products: [],
+      newProduct: {
+        key: 0,
+        slug: '',
+        title: '',
+        description: '',
+        img: '',
+        price: 0
+      },
       status: 'idle' //'idle', 'pending', 'ready', 'error'
     };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.onSave = this.onSave.bind(this);
+    this.loadData = this.loadData.bind(this);
   }
 
   loadData() {
     this.setState({ status: 'pending' });
-    fetch("/api/product").then(function (response) {
-      return response.json();
-    }.bind(this)).then(function (json) {
+    fetch("/api/product").then(res => res.json()).then(json => {
       this.setState({
         products: json,
         status: 'ready'
       });
-    }.bind(this)).catch(function (err) {
+    }).catch(err => {
       this.setState({ status: 'error' });
-    }.bind(this));
+      console.log(err.message);
+    });
   }
 
   componentDidMount() {
     this.loadData();
+  }
+
+  handleInputChange(event) {
+    const name = event.target.name;
+    this.state.newProduct[name] = event.target.value;
+    this.forceUpdate();
+  }
+
+  clearNewProduct() {
+    this.setState({
+      newProduct: {
+        key: 0,
+        slug: '',
+        title: '',
+        description: '',
+        img: '',
+        price: 0
+      }
+    });
+    this.forceUpdate();
+  }
+
+  onSave(event) {
+    event.preventDefault();
+    fetch(`/api/product`, {
+      method: "post",
+      body: JSON.stringify(this.state.newProduct),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(res => res.json()).then(json => {
+      this.setState({
+        newProduct: {
+          key: json.key,
+          slug: json.slug,
+          title: json.title,
+          description: json.description,
+          img: json.img,
+          price: json.price
+        }
+      });
+      this.state.products.push(this.state.newProduct);
+      // this.forceUpdate();
+      this.clearNewProduct();
+    }).catch(err => {
+      this.setState({
+        status: 'error'
+      });
+      console.log(err.message);
+    });
+  }
+
+  renderFormComponent() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PanelProductForm_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      product: this.state.newProduct,
+      changeHandler: this.handleInputChange,
+      submitHandler: this.onSave
+    });
   }
 
   renderProducts() {
@@ -34251,7 +34420,7 @@ class PanelProductsPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Com
         "div",
         { className: "card-deck bg-light row mx-auto" },
         this.state.products.map(function (product) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ProductCard_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], { product: product, route: "panel/product" });
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ProductCard_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], { product: product, route: "panel/product", key: product._id });
         })
       )
     );
@@ -34266,7 +34435,7 @@ class PanelProductsPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Com
         { className: "row bg-warning" },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "nav",
-          { className: "col-md-8 offset-md-2 col-sm-10 offset-sm-1" },
+          { className: "col-md-10 offset-md-1 col-sm-12" },
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Nav_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
             tabs: ["Каталог", "Доставка", "Гарантии", "Контакты"],
             navClass: "nav"
@@ -34278,7 +34447,7 @@ class PanelProductsPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Com
         { className: "row" },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "div",
-          { className: "col-md-8 offset-md-2 col-sm-10 offset-sm-1 bg-light paper" },
+          { className: "col-md-10 offset-md-1 col-sm-12 bg-light paper" },
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
             "nav",
             { "aria-label": "breadcrumb" },
@@ -34310,6 +34479,7 @@ class PanelProductsPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Com
               )
             )
           ),
+          this.renderFormComponent(),
           this.renderProducts()
         )
       ),
@@ -34318,7 +34488,7 @@ class PanelProductsPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Com
         { className: "row bg-dark" },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "div",
-          { className: "col-md-8 offset-md-2 col-sm-10 offset-sm-1" },
+          { className: "col-md-10 offset-md-1 col-sm-12" },
           "\xA9 Codery Camp, 2019"
         )
       )
@@ -34357,7 +34527,7 @@ class ProductCard extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component
             null,
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                 "div",
-                { className: "card col-md-3 offset-md-3 col-sm-4 offset-sm-1", key: product.key },
+                { className: "card col-md-3 offset-md-3 col-sm-4 offset-sm-1" },
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                     react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"],
                     { to: `/${route}/${link}` },
@@ -34595,7 +34765,7 @@ class ProductsPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
         "div",
         { className: "card-deck bg-light row mx-auto" },
         this.state.products.map(function (product) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ProductCard_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], { product: product, route: "product" });
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ProductCard_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], { product: product, route: "product", key: product._id });
         })
       )
     );
