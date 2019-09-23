@@ -121,8 +121,8 @@ app.post('/api/product', (req, res) => {
 });
 
 app.delete('/api/product/:id', (req, res) => {
-    ProductService.removeProduct(req.body)
-        .then(result => res.json(result));
+    const result = ProductService.removeProduct(req.body);
+    res.json(result);
 });
 
 app.use(serveNotFound);

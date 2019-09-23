@@ -65,7 +65,7 @@ module.exports = {
     removeProduct(product) {
         productCollection.remove({"key": product.key})
             .then(result => {
-                return result.nRemoved === 1 ? true : false;
+                return result.nRemoved > 0 ? true : false;
             })
             .catch(err => {
                 console.log(`Error=${err.message}`);
