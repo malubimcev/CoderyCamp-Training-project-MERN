@@ -99,6 +99,9 @@ app.use(staticMiddleware);
 const jsonBodyParser = bodyParser("json");
 app.use(jsonBodyParser);
 
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+
 app.get('/', serveSPA);
 app.get('/product', serveSPA);
 app.get('/product/:key_and_slug', serveSPA);
@@ -123,6 +126,28 @@ app.post('/api/product', (req, res) => {
 app.delete('/api/product/:id', (req, res) => {
     const result = ProductService.removeProduct(req.body);
     res.json(result);
+});
+
+app.get('/api/login', (req, res) => {
+    const result = `Установка cookie: URL ${req.originalUrl}`;
+    res.set({ 'Set-Cookie': 'user=user@fail.ru; Path=/' });
+    res.status(200).send(result).end();
+});
+
+app.get('/api/login2', (req, res) => {
+    const result = `Установка cookie: URL ${req.originalUrl}`;
+    res.cookie('user', 'user2@fail.ru', { path: '/', encode: String });
+    res.status(200).send(result).end();
+});
+
+app.get('/api/me', (req, res) => {
+    let result = 'User unauthorized';
+    let statusCode = 401;
+    if (req.cookies) {
+        result = `User: ${req.cookies.user}`;
+        statusCode = 200;
+    }
+    res.status(statusCode).send(result).end();
 });
 
 app.use(serveNotFound);
