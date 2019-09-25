@@ -3,6 +3,7 @@ const ObjectID = require('mongodb').ObjectID;
 
 let shopDatabase;
 let productCollection;
+let userCollection;
 
 module.exports = {
     init() {
@@ -10,6 +11,7 @@ module.exports = {
             .then(function (clientInstance) {
                 shopDatabase = clientInstance.db("shop");
                 productCollection = shopDatabase.collection("product");
+                userCollection = shopDatabase.collection("user");
             });
     },
 
@@ -29,6 +31,13 @@ module.exports = {
     getProductByID(id) {
         if (ObjectID.isValid(id)) {
             return productCollection.findOne({_id: ObjectID(id)});
+        }
+        return Promise.reject();
+    },
+
+    getUserByEmail(email) {
+        if (email) {
+            return userCollection.findOne({"email": email});
         }
         return Promise.reject();
     },

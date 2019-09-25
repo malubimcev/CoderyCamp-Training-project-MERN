@@ -1,7 +1,7 @@
 const fs = require('fs');
 const express = require('express');
 const app = express();
-const ProductService = require("./ProductService.js");
+const DBService = require("./DBService.js");
 const bodyParser = require('body-parser');
 
 const port = '3000';
@@ -40,7 +40,7 @@ const serveSPA = function(req, res) {
 const serveProducts = function(req, res) {
     if (req.query.key || req.query.slug) {
         //получен GET-запрос вида /api/product?key=value
-        ProductService.getProducts(req.query)
+        DBService.getProducts(req.query)
             .then(product => {
                 if (product) {
                     res.statusCode = 200;
@@ -55,7 +55,7 @@ const serveProducts = function(req, res) {
             });
     } else {
         //получен запрос вида /api/product
-        ProductService.getProducts()
+        DBService.getProducts()
             .then(products => {
                 if (products) {
                     res.statusCode = 200;
@@ -75,7 +75,7 @@ const serveProducts = function(req, res) {
 const serveOneProduct = function(req, res) {
     if (req.params.id) {
         //получен запрос по id вида /api/product/_id
-        ProductService.getProductByID(req.params.id)
+        DBService.getProductByID(req.params.id)
             .then(product => {
                 if (product) {
                     res.statusCode = 200;
@@ -114,17 +114,17 @@ app.get('/panel/product', serveSPA);
 app.get('/panel/product/:id', serveSPA);
 
 app.put('/api/product/:id', (req, res) => {
-    const result = ProductService.updateProduct(req.params.id, req.body);
+    const result = DBService.updateProduct(req.params.id, req.body);
     res.json(result);
 });
 
 app.post('/api/product', (req, res) => {
-    const result = ProductService.insertProduct(req.body);
+    const result = DBService.insertProduct(req.body);
     res.json(result);
 });
 
 app.delete('/api/product/:id', (req, res) => {
-    const result = ProductService.removeProduct(req.body);
+    const result = DBService.removeProduct(req.body);
     res.json(result);
 });
 
@@ -143,13 +143,18 @@ app.get('/api/login2', (req, res) => {
 app.get('/api/me', (req, res) => {
     let result = 'User unauthorized';
     let statusCode = 401;
-    if (req.cookies) {
-        result = `User: ${req.cookies.user}`;
-        statusCode = 200;
+    if (req.cookies && req.cookies.user) {
+        const user = DBService.getUserByEmail(req.cookies.user)
+        if (user) {
+            result = `User ${req.cookies.user} authorized`;
+            statusCode = 200;
+        } else {
+            statusCode = 403;
+        }
     }
     res.status(statusCode).send(result).end();
 });
 
 app.use(serveNotFound);
 
-ProductService.init();
+DBService.init();
