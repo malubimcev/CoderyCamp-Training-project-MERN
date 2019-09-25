@@ -3,6 +3,9 @@ const express = require('express');
 const app = express();
 const DBService = require("./DBService.js");
 const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
+
+const SECRET = "secret_string";
 
 const port = '3000';
 // const port = process.env.PORT;
@@ -128,31 +131,52 @@ app.delete('/api/product/:id', (req, res) => {
     res.json(result);
 });
 
+const payload = {
+    email: "user@fail.ru"
+};
+  
+const token = jwt.sign(payload, SECRET, {
+    expiresIn: "5m"
+});
+
 app.get('/api/login', (req, res) => {
     const result = `Установка cookie: URL ${req.originalUrl}`;
-    res.set({ 'Set-Cookie': 'user=user@fail.ru; Path=/' });
+    res.set({ 'Set-Cookie': `token=${token}; Path=/` });
     res.status(200).send(result).end();
 });
 
 app.get('/api/login2', (req, res) => {
     const result = `Установка cookie: URL ${req.originalUrl}`;
-    res.cookie('user', 'user2@fail.ru', { path: '/', encode: String });
+    res.cookie('token', token, { path: '/', encode: String });
     res.status(200).send(result).end();
 });
 
 app.get('/api/me', (req, res) => {
-    let result = 'User unauthorized';
+    let result = 'Пользователь не авторизован';
     let statusCode = 401;
-    if (req.cookies && req.cookies.user) {
-        const user = DBService.getUserByEmail(req.cookies.user)
-        if (user) {
-            result = `User ${req.cookies.user} authorized`;
-            statusCode = 200;
-        } else {
-            statusCode = 403;
-        }
+    try {
+        const payload = jwt.verify(token, SECRET);
+        DBService.getUserByEmail(payload.email)
+            .then(user => {
+                if (user.email === payload.email) {
+                    result = `Пользователь ${user.email} авторизован`;
+                    statusCode = 200;
+                } else {
+                    result = `Отказано в доступе: ${user.email}`;
+                    statusCode = 403;
+                }
+                res.status(statusCode).send(result).end();
+            })
+            .catch(err => {
+                result = `Отказано в доступе`;
+                statusCode = 403;
+                res.status(statusCode).send(result).end();
+            });
+    } catch(err) {
+        result = `Отказано в доступе`;
+        statusCode = 403;
+        res.status(statusCode).send(result).end();
     }
-    res.status(statusCode).send(result).end();
 });
 
 app.use(serveNotFound);
