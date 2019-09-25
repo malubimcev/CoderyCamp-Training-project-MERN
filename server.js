@@ -140,9 +140,25 @@ const token = jwt.sign(payload, SECRET, {
 });
 
 app.get('/api/login', (req, res) => {
-    const result = `Установка cookie: URL ${req.originalUrl}`;
-    res.set({ 'Set-Cookie': `token=${token}; Path=/` });
-    res.status(200).send(result).end();
+    let result = 'Пользователь не авторизован';
+    if (req.query.email && req.query.password) {
+        //получен GET-запрос вида /api/login?email=value&password=value
+        DBService.getUserByEmail(req.query.email)
+            .then(user => {
+                if (user.password === req.query.password) {
+                    result = `Установка cookie: URL ${req.originalUrl}`;
+                    res.set({ 'Set-Cookie': `token=${token}; Path=/` });
+                    res.status(200).send(result).end();
+                } else {
+                    throw Error;
+                }
+            })
+            .catch(err => {
+                res.status(403).send(result).end();
+            });
+    } else {
+        serveNotFound(req, res);
+    }
 });
 
 app.get('/api/login2', (req, res) => {
