@@ -4,6 +4,7 @@ const app = express();
 const DBService = require("./DBService.js");
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 const SECRET = "secret_string";
 
@@ -54,7 +55,7 @@ const serveProducts = function(req, res) {
             })
             .catch(err => {
                 res.statusCode = 500;
-                res.send(`Внутренняя ошибка сервера: ${err}`);
+                res.send(`Внутренняя ошибка сервера: ${err}`).end();
             });
     } else {
         //получен запрос вида /api/product
@@ -89,7 +90,7 @@ const serveOneProduct = function(req, res) {
             })
             .catch(err => {
                 res.statusCode = 500;
-                res.send(`Внутренняя ошибка сервера: ${err}`);
+                res.send(`Внутренняя ошибка сервера: ${err}`).end();
             });
     } else {
         serveNotFound(req, res);
@@ -139,13 +140,24 @@ const token = jwt.sign(payload, SECRET, {
     expiresIn: "5m"
 });
 
+const sendAccessDenied = (req, res) => {
+    res.status(403).send(`Отказано в доступе`).end();
+}
+
+const getHash = (password) => {
+    const saltRounds = 10;
+    return bcrypt.hashSync(password, saltRounds);    
+}
+
+const checkPasswordHash = password => bcrypt.compareSync(password, getHash(password));
+
 app.get('/api/login', (req, res) => {
     let result = 'Пользователь не авторизован';
     if (req.query.email && req.query.password) {
         //получен GET-запрос вида /api/login?email=value&password=value
         DBService.getUserByEmail(req.query.email)
             .then(user => {
-                if (user.password === req.query.password) {
+                if (checkPasswordHash(req.query.password, user.passwordHash)) {
                     result = `Установка cookie: URL ${req.originalUrl}`;
                     res.set({ 'Set-Cookie': `token=${token}; Path=/` });
                     res.status(200).send(result).end();
@@ -154,7 +166,7 @@ app.get('/api/login', (req, res) => {
                 }
             })
             .catch(err => {
-                res.status(403).send(result).end();
+                sendAccessDenied(req, res);
             });
     } else {
         serveNotFound(req, res);
@@ -167,31 +179,47 @@ app.get('/api/login2', (req, res) => {
     res.status(200).send(result).end();
 });
 
+const checkToken = (req, res, next) => {
+    // При определенных условиях – вернуть ответ
+    if (someCondition) {
+      res.write("Response text");
+      res.end();
+      return;
+    }
+  
+    // Иначе – поместить полезную информацию 
+    // в req, чтобы ей могли пользоваться следующие обработчики
+    // и передать управление
+    req.someData = { processed: true };
+    next();
+}
+
 app.get('/api/me', (req, res) => {
-    let result = 'Пользователь не авторизован';
-    let statusCode = 401;
     try {
         const payload = jwt.verify(token, SECRET);
         DBService.getUserByEmail(payload.email)
             .then(user => {
                 if (user.email === payload.email) {
                     result = `Пользователь ${user.email} авторизован`;
-                    statusCode = 200;
+                    res.status(200).send(result).end();
                 } else {
-                    result = `Отказано в доступе: ${user.email}`;
-                    statusCode = 403;
+                    throw Error;
                 }
-                res.status(statusCode).send(result).end();
             })
-            .catch(err => {
-                result = `Отказано в доступе`;
-                statusCode = 403;
-                res.status(statusCode).send(result).end();
-            });
+            .catch(err => sendAccessDenied(req, res));
     } catch(err) {
-        result = `Отказано в доступе`;
-        statusCode = 403;
-        res.status(statusCode).send(result).end();
+        sendAccessDenied(req, res);
+    }
+});
+
+app.get('/api/bcrypt', (req, res) => {
+    if (req.query.password) {
+        //получен GET-запрос вида /api/bcrypt?password=value
+        const hash = getHash(req.query.password);
+        const result = `Password=${req.query.password}<br>Hash=${hash}`;
+        res.status(200).send(result).end;
+    } else {
+        sendAccessDenied(req, res);
     }
 });
 
