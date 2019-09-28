@@ -6,8 +6,6 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
-const SECRET = "secret_string";
-
 const port = '3000';
 // const port = process.env.PORT;
 
@@ -15,7 +13,7 @@ app.listen(port, function() {
   console.log(`Server started at port ${port}`);
 });
 
-const serveNotFound = function(req, res) {
+const serveNotFound = (req, res) => {
     fs.readFile("./static/page404.html", (err, data) => {
         if (err) {
             res.statusCode = 500;
@@ -29,7 +27,7 @@ const serveNotFound = function(req, res) {
     });    
 }
 
-const serveSPA = function(req, res) {
+const serveSPA = (req, res) => {
     fs.readFile("./public/spa.html", (err, data) => {
         if (err) {
             return serveNotFound(req, res);
@@ -41,7 +39,7 @@ const serveSPA = function(req, res) {
     });
 }
 
-const serveProducts = function(req, res) {
+const serveProducts = (req, res) => {
     if (req.query.key || req.query.slug) {
         //получен GET-запрос вида /api/product?key=value
         DBService.getProducts(req.query)
@@ -76,7 +74,7 @@ const serveProducts = function(req, res) {
     }
 }
 
-const serveOneProduct = function(req, res) {
+const serveOneProduct = (req, res) => {
     if (req.params.id) {
         //получен запрос по id вида /api/product/_id
         DBService.getProductByID(req.params.id)
@@ -110,38 +108,25 @@ app.get('/', serveSPA);
 app.get('/product', serveSPA);
 app.get('/product/:key_and_slug', serveSPA);
 
-app.get('/api/product', serveProducts);
-app.get('/api/product/:id', serveOneProduct);
 
 app.get('/panel', serveSPA);//админка
 app.get('/panel/product', serveSPA);
 app.get('/panel/product/:id', serveSPA);
 
-app.put('/api/product/:id', (req, res) => {
-    const result = DBService.updateProduct(req.params.id, req.body);
-    res.json(result);
-});
-
-app.post('/api/product', (req, res) => {
-    const result = DBService.insertProduct(req.body);
-    res.json(result);
-});
-
-app.delete('/api/product/:id', (req, res) => {
-    const result = DBService.removeProduct(req.body);
-    res.json(result);
-});
-
-const payload = {
-    email: "user@fail.ru"
-};
-  
-const token = jwt.sign(payload, SECRET, {
-    expiresIn: "5m"
-});
-
 const sendAccessDenied = (req, res) => {
     res.status(403).send(`Отказано в доступе`).end();
+}
+
+const SECRET = "secret_string";
+
+const token = (email) => {
+    const payload = {
+        email: email
+    };
+    const expires = {
+        expiresIn: "5m"
+    }
+    return jwt.sign(payload, SECRET, expires);
 }
 
 const getHash = (password) => {
@@ -151,6 +136,30 @@ const getHash = (password) => {
 
 const checkPasswordHash = password => bcrypt.compareSync(password, getHash(password));
 
+const checkToken = (req, res, next) => {
+    try {
+        const payload = jwt.verify(req.cookies.token, SECRET);
+        DBService.getUserByEmail(payload.email)
+            .then(user => {
+                if (user.email === payload.email) {
+                    req.user = { 
+                        isAuthorized: true,
+                        email: user.email
+                    };
+                } else {
+                    req.user = { 
+                        isAuthorized: false,
+                        email: user.email
+                    };
+                }
+                next();
+            })
+            .catch(err => sendAccessDenied(req, res));
+    } catch(err) {
+        sendAccessDenied(req, res);
+    }
+}
+
 app.get('/api/login', (req, res) => {
     let result = 'Пользователь не авторизован';
     if (req.query.email && req.query.password) {
@@ -159,7 +168,7 @@ app.get('/api/login', (req, res) => {
             .then(user => {
                 if (checkPasswordHash(req.query.password, user.passwordHash)) {
                     result = `Установка cookie: URL ${req.originalUrl}`;
-                    res.set({ 'Set-Cookie': `token=${token}; Path=/` });
+                    res.set({ 'Set-Cookie': `token=${token(req.query.email)}; Path=/` });
                     res.status(200).send(result).end();
                 } else {
                     throw Error;
@@ -175,39 +184,51 @@ app.get('/api/login', (req, res) => {
 
 app.get('/api/login2', (req, res) => {
     const result = `Установка cookie: URL ${req.originalUrl}`;
-    res.cookie('token', token, { path: '/', encode: String });
+    res.cookie('token', token('user2@fail.ru'), { path: '/', encode: String });
     res.status(200).send(result).end();
 });
 
-const checkToken = (req, res, next) => {
-    // При определенных условиях – вернуть ответ
-    if (someCondition) {
-      res.write("Response text");
-      res.end();
-      return;
+app.get('/api/product', serveProducts);
+app.get('/api/product/:id', checkToken);
+app.get('/api/product/:id', (req, res) => {
+    if (req.user.isAuthorized) {
+        serveOneProduct(req, res);
+    } else {
+        sendAccessDenied(req, res);
     }
-  
-    // Иначе – поместить полезную информацию 
-    // в req, чтобы ей могли пользоваться следующие обработчики
-    // и передать управление
-    req.someData = { processed: true };
-    next();
-}
+});
 
+app.put('/api/product/:id', checkToken);
+app.put('/api/product/:id', (req, res) => {
+    if (req.user.isAuthorized) {
+        const result = DBService.updateProduct(req.params.id, req.body);
+        res.json(result);
+    } else {
+        sendAccessDenied(req, res);
+    }
+});
+
+app.post('/api/product', checkToken);
+app.post('/api/product', (req, res) => {
+    if (req.user.isAuthorized) {
+        const result = DBService.insertProduct(req.body);
+        res.json(result);
+    } else {
+        sendAccessDenied(req, res);
+    }
+});
+
+app.delete('/api/product/:id', (req, res) => {
+    const result = DBService.removeProduct(req.body);
+    res.json(result);
+});
+
+app.get('/api/me', checkToken);
 app.get('/api/me', (req, res) => {
-    try {
-        const payload = jwt.verify(token, SECRET);
-        DBService.getUserByEmail(payload.email)
-            .then(user => {
-                if (user.email === payload.email) {
-                    result = `Пользователь ${user.email} авторизован`;
-                    res.status(200).send(result).end();
-                } else {
-                    throw Error;
-                }
-            })
-            .catch(err => sendAccessDenied(req, res));
-    } catch(err) {
+    if (req.user.isAuthorized) {
+        const result = `Пользователь ${req.user.email} авторизован`;
+        res.status(200).send(result).end();
+    } else {
         sendAccessDenied(req, res);
     }
 });
