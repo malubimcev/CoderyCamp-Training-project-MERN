@@ -78,6 +78,17 @@ export default class PanelProductForm extends React.Component {
           ></textarea>
         </div>
         <div className="form-group row"> 
+          <label className="col-md-2 offset-md-1 col-sm-1 offset-sm-1 col-form-label">Изображение</label>
+          <input
+            name="img"
+            type="text"
+            className="col-md-8 col-sm-7 form-control form-control-lg"
+            placeholder="image"
+            value={this.state.product.img}
+            onChange={this.handleInputChange}
+          />
+        </div>
+        <div className="form-group row"> 
           <label className="col-md-2 offset-md-1 col-sm-1 offset-sm-1 col-form-label">Ключ</label>
           <input
             name="key"

@@ -34062,10 +34062,10 @@ class PanelLoginPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
 
     this.state = {
       credentials: {
-        login: "",
-        password: ""
+        login: '',
+        password: ''
       },
-      status: "idle" // idle | pending | ready | error
+      status: 'idle' // idle | pending | logged | error
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -34078,15 +34078,19 @@ class PanelLoginPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
   clearUserData() {
     this.setState({
       credentials: {
-        login: "",
-        password: ""
-      }
+        login: '',
+        password: ''
+      },
+      status: 'pending'
     });
     this.forceUpdate();
   }
 
   onSubmit(event) {
     event.preventDefault();
+    this.setState({
+      status: 'idle'
+    });
     fetch(`/api/login`, {
       method: "post",
       credentials: "same-origin",
@@ -34094,19 +34098,17 @@ class PanelLoginPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
       headers: {
         "Content-Type": "application/json"
       }
-    }).then(res => res.json()).then(json => {
+    }).then(res => {
+      console.log(res);
+      res.json();
+    }).then(json => {
       this.setState({
-        credentials: {
-          login: json.email,
-          password: json.slug
-        }
+        status: 'logged'
       });
-      this.state.products.push(this.state.newProduct);
-      // this.forceUpdate();
-      this.clearUserData();
+      this.forceUpdate();
     }).catch(err => {
       this.setState({
-        status: "error"
+        status: 'error'
       });
       console.log(err.message);
     });
@@ -34114,59 +34116,78 @@ class PanelLoginPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
 
   renderForm() {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-      "form",
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment,
       null,
       react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-        "div",
-        { className: "form-group" },
+        "form",
+        null,
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "div",
-          { className: "form-group row" },
+          { className: "form-group" },
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            "label",
-            { className: "col-md-2 offset-md-1 col-sm-1 offset-sm-1 col-form-label" },
-            "\u0418\u043C\u044F \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F"
+            "div",
+            { className: "form-group row" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "label",
+              { className: "col-md-2 offset-md-1 col-sm-1 offset-sm-1 col-form-label" },
+              "\u0418\u043C\u044F \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F"
+            ),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+              name: "login",
+              type: "text",
+              className: "col-md-4 col-sm-3 form-control form-control-lg",
+              placeholder: "Login"
+              // value={this.state.produc.title}
+              , onChange: this.handleInputChange
+            })
           ),
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-            name: "login",
-            type: "text",
-            className: "col-md-4 col-sm-3 form-control form-control-lg",
-            placeholder: "Login"
-            // value={this.state.product.title}
-            , onChange: this.handleInputChange
-          })
-        ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "div",
-          { className: "form-group row" },
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            "label",
-            { className: "col-md-2 offset-md-1 col-sm-1 offset-sm-1 col-form-label" },
-            "\u041F\u0430\u0440\u043E\u043B\u044C"
+            "div",
+            { className: "form-group row" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "label",
+              { className: "col-md-2 offset-md-1 col-sm-1 offset-sm-1 col-form-label" },
+              "\u041F\u0430\u0440\u043E\u043B\u044C"
+            ),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+              name: "password",
+              type: "password",
+              className: "col-md-4 col-sm-3 form-control form-control-lg",
+              placeholder: "password",
+              onChange: this.handleInputChange
+            })
           ),
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-            name: "password",
-            type: "password",
-            className: "col-md-4 col-sm-3 form-control form-control-lg",
-            placeholder: "password"
-            // value={this.state.product.key}
-            , onChange: this.handleInputChange
-          })
-        ),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "div",
-          { className: "row" },
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            "button",
-            {
-              type: "submit",
-              className: "btn btn-primary col-md-1 offset-md-3",
-              onClick: this.onSubmit
-            },
-            "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C"
+            "div",
+            { className: "row" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              "button",
+              {
+                type: "submit",
+                className: "btn btn-primary col-md-1 offset-md-3",
+                onClick: this.onSubmit
+              },
+              "\u0412\u043E\u0439\u0442\u0438"
+            )
           )
         )
       )
+    );
+  }
+
+  renderErrorAlert() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+      "div",
+      { className: "alert alert-danger", role: "alert" },
+      "\u0414\u043E\u0441\u0442\u0443\u043F \u0437\u0430\u043F\u0440\u0435\u0449\u0435\u043D."
+    );
+  }
+
+  renderPendingAlert() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+      "div",
+      { className: "alert alert-secondary", role: "alert" },
+      "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430..."
     );
   }
 
@@ -34184,7 +34205,9 @@ class PanelLoginPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
           "div",
           { className: "col-md-10 offset-md-1 col-sm-12 bg-light paper" },
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Breadcrumbs_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], null),
-          this.renderForm()
+          this.state.status === "error" && this.renderErrorAlert(),
+          this.state.status === "pending" && this.renderPendingAlert(),
+          this.state.status !== "logged" && this.renderForm()
         )
       ),
       react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageFooter_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], null)
@@ -34399,6 +34422,23 @@ class PanelProductForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Comp
             rows: '4',
             placeholder: '\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0442\u043E\u0432\u0430\u0440\u0430',
             value: this.state.product.description,
+            onChange: this.handleInputChange
+          })
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          'div',
+          { className: 'form-group row' },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            'label',
+            { className: 'col-md-2 offset-md-1 col-sm-1 offset-sm-1 col-form-label' },
+            '\u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435'
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement('input', {
+            name: 'img',
+            type: 'text',
+            className: 'col-md-8 col-sm-7 form-control form-control-lg',
+            placeholder: 'image',
+            value: this.state.product.img,
             onChange: this.handleInputChange
           })
         ),

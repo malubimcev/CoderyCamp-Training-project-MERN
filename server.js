@@ -169,7 +169,7 @@ app.post('/api/login', (req, res) => {
                 if (checkPasswordHash(req.query.password, user.passwordHash)) {
                     // res.set({ 'Set-Cookie': `token=${token(req.body.login)}; Path=/` });
                     res.cookie('token', token(req.body.login), { path: '/', encode: String } );
-                    res.json(user);
+                    // res.json(user);
                 } else {
                     throw Error;
                 }
