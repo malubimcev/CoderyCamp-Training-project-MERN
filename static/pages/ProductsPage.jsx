@@ -1,6 +1,8 @@
 import React from "react";
-import Nav from "../components/Nav.jsx";
-import ProductCard from "./ProductCard.jsx";
+import PageHeader from "../components/PageHeader.jsx";
+import PageFooter from "../components/PageFooter.jsx";
+import ProductCard from "../components/ProductCard.jsx";
+import Breadcrumbs from "../components/Breadcrumbs.jsx";
 
 export default class ProductsPage extends React.Component {
 
@@ -58,42 +60,20 @@ export default class ProductsPage extends React.Component {
 
     render() {
       return <React.Fragment>
-        <header className="row bg-primary">
-
-          <nav className="col-md-8 offset-md-2 col-sm-10 offset-sm-1">
-            <Nav 
-              tabs={["Каталог", "Доставка", "Гарантии", "Контакты"]}
-              navClass="nav"
-            />
-          </nav>
-          
-        </header>
+        <PageHeader 
+          headerClass='bg-primary'
+        />
         
         <main className="row">
-
           <div className="col-md-8 offset-md-2 col-sm-10 offset-sm-1 bg-light paper">
-
-            <nav aria-label="breadcrumb">
-              <ol className="breadcrumb">
-                <li className="breadcrumb-item"><a href="#">Home</a></li>
-                <li className="breadcrumb-item"><a href="#">Library</a></li>
-                <li className="breadcrumb-item active" aria-current="page">Data</li>
-              </ol>
-            </nav>
+            <Breadcrumbs />
             
-            { 
-              this.renderProducts()
-            }
+            { this.renderProducts() }
           
           </div>  
-
         </main>
         
-        <footer className="row bg-dark">
-          <div className="col-md-8 offset-md-2 col-sm-10 offset-sm-1">
-            &copy; Codery Camp, 2019
-          </div>
-        </footer>
+        <PageFooter />
       </React.Fragment>
     }
 

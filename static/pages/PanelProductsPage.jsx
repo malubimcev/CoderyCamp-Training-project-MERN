@@ -1,7 +1,9 @@
 import React from "react";
-import Nav from "../components/Nav.jsx";
-import ProductCard from "./ProductCard.jsx";
+import PageHeader from "../components/PageHeader.jsx";
+import PageFooter from "../components/PageFooter.jsx";
+import ProductCard from "../components/ProductCard.jsx";
 import PanelProductForm from "./PanelProductForm.jsx";
+import Breadcrumbs from "../components/Breadcrumbs.jsx";
 
 export default class PanelProductsPage extends React.Component {
 
@@ -28,7 +30,10 @@ export default class PanelProductsPage extends React.Component {
 
   loadData() {
     this.setState({status: 'pending'});
-    fetch("/api/product")
+    fetch("/api/product", {
+      method: "get",
+      credentials: "same-origin"
+    })
       .then(res => res.json())
       .then(json => {
         this.setState({
@@ -70,6 +75,7 @@ export default class PanelProductsPage extends React.Component {
     event.preventDefault();
     fetch(`/api/product`, {
       method: "post",
+      credentials: "same-origin",
       body: JSON.stringify(this.state.newProduct),
       headers: {
         "Content-Type": "application/json"
@@ -99,14 +105,6 @@ export default class PanelProductsPage extends React.Component {
       });
   }
 
-  renderFormComponent() {
-    return <PanelProductForm 
-      product={this.state.newProduct}
-      changeHandler={this.handleInputChange}
-      submitHandler={this.onSave}
-    />
-  }
-
   renderProducts() {
     if (this.state.status === 'error') {
       return <div className="alert alert-danger" role="alert">
@@ -132,37 +130,27 @@ export default class PanelProductsPage extends React.Component {
 
   render() {
     return <React.Fragment>
-      <header className="row bg-warning">
-        <nav className="col-md-10 offset-md-1 col-sm-12">
-          <Nav 
-            tabs={["Каталог", "Доставка", "Гарантии", "Контакты"]}
-            navClass="nav"
-          />
-        </nav>
-      </header>
+        <PageHeader 
+          headerClass='bg-warning'
+        />
       
       <main className="row">
         <div className="col-md-10 offset-md-1 col-sm-12 bg-light paper">
 
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb">
-              <li className="breadcrumb-item"><a href="#">Home</a></li>
-              <li className="breadcrumb-item"><a href="#">Library</a></li>
-              <li className="breadcrumb-item active" aria-current="page">Data</li>
-            </ol>
-          </nav>
+        <Breadcrumbs />
 
-          { this.renderFormComponent() }
+          <PanelProductForm 
+            product={this.state.newProduct}
+            changeHandler={this.handleInputChange}
+            submitHandler={this.onSave}
+          />
+
           { this.renderProducts() }
         
         </div>  
       </main>
       
-      <footer className="row bg-dark">
-        <div className="col-md-10 offset-md-1 col-sm-12">
-          &copy; Codery Camp, 2019
-        </div>
-      </footer>
+      <PageFooter />
     </React.Fragment>
   }
 

@@ -25,7 +25,14 @@ export default class PanelProductPage extends React.Component {
   loadData() {
     this.setState({status: 'pending'});
     
-    fetch(`/api/product/${this.props.match.params.id}`)
+    fetch(`/api/product/${this.props.match.params.id}`, {
+      method: "get",
+      credentials: "same-origin",
+      // body: JSON.stringify(this.state.credentials),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
       .then(response => response.json())
       .then(json => {
         this.setState({
@@ -60,6 +67,7 @@ export default class PanelProductPage extends React.Component {
     event.preventDefault();
     fetch(`/api/product/${this.props.match.params.id}`, {
       method: "put",
+      credentials: "same-origin",
       body: JSON.stringify(this.state.product),
       headers: {
         "Content-Type": "application/json"

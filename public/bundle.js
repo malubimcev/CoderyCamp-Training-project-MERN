@@ -33751,7 +33751,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_PanelPage_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/PanelPage.jsx */ "./static/pages/PanelPage.jsx");
 /* harmony import */ var _pages_PanelProductsPage_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/PanelProductsPage.jsx */ "./static/pages/PanelProductsPage.jsx");
 /* harmony import */ var _pages_PanelProductPage_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/PanelProductPage.jsx */ "./static/pages/PanelProductPage.jsx");
-/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! history */ "./node_modules/history/esm/history.js");
+/* harmony import */ var _pages_PanelLoginPage_jsx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pages/PanelLoginPage.jsx */ "./static/pages/PanelLoginPage.jsx");
+/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! history */ "./node_modules/history/esm/history.js");
 
 
 
@@ -33763,7 +33764,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const history = Object(history__WEBPACK_IMPORTED_MODULE_8__["createBrowserHistory"])();
+
+const history = Object(history__WEBPACK_IMPORTED_MODULE_9__["createBrowserHistory"])();
 
 class App extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   render() {
@@ -33778,13 +33780,67 @@ class App extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], { exact: true, path: "/product/:product", component: _pages_ProductPage_jsx__WEBPACK_IMPORTED_MODULE_4__["default"] }),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], { exact: true, path: "/panel", component: _pages_PanelPage_jsx__WEBPACK_IMPORTED_MODULE_5__["default"] }),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], { exact: true, path: "/panel/product", component: _pages_PanelProductsPage_jsx__WEBPACK_IMPORTED_MODULE_6__["default"] }),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], { exact: true, path: "/panel/product/:id", component: _pages_PanelProductPage_jsx__WEBPACK_IMPORTED_MODULE_7__["default"] })
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], { exact: true, path: "/panel/product/:id", component: _pages_PanelProductPage_jsx__WEBPACK_IMPORTED_MODULE_7__["default"] }),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], { exact: true, path: "/panel/login", component: _pages_PanelLoginPage_jsx__WEBPACK_IMPORTED_MODULE_8__["default"] })
       )
     );
   }
 }
 
 react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(App, null), document.querySelector("#root"));
+
+/***/ }),
+
+/***/ "./static/components/Breadcrumbs.jsx":
+/*!*******************************************!*\
+  !*** ./static/components/Breadcrumbs.jsx ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Breadcrumbs; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+class Breadcrumbs extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+
+    render() {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "nav",
+            { "aria-label": "breadcrumb" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                "ol",
+                { className: "breadcrumb" },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                    "li",
+                    { className: "breadcrumb-item" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                        "a",
+                        { href: "#" },
+                        "Home"
+                    )
+                ),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                    "li",
+                    { className: "breadcrumb-item" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                        "a",
+                        { href: "#" },
+                        "Library"
+                    )
+                ),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                    "li",
+                    { className: "breadcrumb-item active", "aria-current": "page" },
+                    "Data"
+                )
+            )
+        );
+    }
+}
 
 /***/ }),
 
@@ -33836,6 +33892,302 @@ class Nav extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
           )
         );
       })
+    );
+  }
+}
+
+/***/ }),
+
+/***/ "./static/components/PageFooter.jsx":
+/*!******************************************!*\
+  !*** ./static/components/PageFooter.jsx ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PageFooter; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+class PageFooter extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+
+    render() {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "footer",
+            { className: "row bg-dark" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                "div",
+                { className: "col-md-8 offset-md-2 col-sm-10 offset-sm-1" },
+                "\xA9 Codery Camp, 2019"
+            )
+        );
+    }
+}
+
+/***/ }),
+
+/***/ "./static/components/PageHeader.jsx":
+/*!******************************************!*\
+  !*** ./static/components/PageHeader.jsx ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PageHeader; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Nav_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Nav.jsx */ "./static/components/Nav.jsx");
+
+
+
+class PageHeader extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+
+    render() {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "header",
+            { className: `row ${this.props.headerClass}` },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                "nav",
+                { className: "col-md-10 offset-md-1 col-sm-12" },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Nav_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+                    tabs: ["Каталог", "Доставка", "Гарантии", "Контакты"],
+                    navClass: "nav"
+                })
+            )
+        );
+    }
+}
+
+/***/ }),
+
+/***/ "./static/components/ProductCard.jsx":
+/*!*******************************************!*\
+  !*** ./static/components/ProductCard.jsx ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ProductCard; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
+
+
+class ProductCard extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+
+    render() {
+        const product = this.props.product;
+        const route = this.props.route;
+        const link = route === 'panel/product' ? `${product._id}` : `${product.key}-${product.slug}`;
+
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment,
+            null,
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                "div",
+                { className: "card col-md-3 offset-md-3 col-sm-4 offset-sm-1" },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                    react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"],
+                    { to: `/${route}/${link}` },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", { className: "card-img", src: `/${product.img}`, alt: "Card image cap" })
+                ),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                    "div",
+                    { className: "card-body-right" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                        "h5",
+                        { className: "card-title" },
+                        product.title
+                    ),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                        "p",
+                        { className: "card-text" },
+                        product.description
+                    ),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                        "p",
+                        { className: "card-text" },
+                        "\u0426\u0435\u043D\u0430: ",
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            "span",
+                            { className: "card-price" },
+                            product.price,
+                            " \u0440\u0443\u0431."
+                        )
+                    ),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                        react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"],
+                        { to: `/${route}/${link}` },
+                        "\u041A\u0443\u043F\u0438\u0442\u044C"
+                    )
+                )
+            )
+        );
+    }
+}
+
+/***/ }),
+
+/***/ "./static/pages/PanelLoginPage.jsx":
+/*!*****************************************!*\
+  !*** ./static/pages/PanelLoginPage.jsx ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PanelLoginPage; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_PageHeader_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/PageHeader.jsx */ "./static/components/PageHeader.jsx");
+/* harmony import */ var _components_PageFooter_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/PageFooter.jsx */ "./static/components/PageFooter.jsx");
+/* harmony import */ var _components_Breadcrumbs_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Breadcrumbs.jsx */ "./static/components/Breadcrumbs.jsx");
+
+
+
+
+
+class PanelLoginPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      credentials: {
+        login: "",
+        password: ""
+      },
+      status: "idle" // idle | pending | ready | error
+    };
+
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    // this.loadData();
+  }
+
+  clearUserData() {
+    this.setState({
+      credentials: {
+        login: "",
+        password: ""
+      }
+    });
+    this.forceUpdate();
+  }
+
+  onSubmit(event) {
+    event.preventDefault();
+    fetch(`/api/login`, {
+      method: "post",
+      credentials: "same-origin",
+      body: JSON.stringify(this.state.credentials),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(res => res.json()).then(json => {
+      this.setState({
+        credentials: {
+          login: json.email,
+          password: json.slug
+        }
+      });
+      this.state.products.push(this.state.newProduct);
+      // this.forceUpdate();
+      this.clearUserData();
+    }).catch(err => {
+      this.setState({
+        status: "error"
+      });
+      console.log(err.message);
+    });
+  }
+
+  renderForm() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+      "form",
+      null,
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        "div",
+        { className: "form-group" },
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "div",
+          { className: "form-group row" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "label",
+            { className: "col-md-2 offset-md-1 col-sm-1 offset-sm-1 col-form-label" },
+            "\u0418\u043C\u044F \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F"
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+            name: "login",
+            type: "text",
+            className: "col-md-4 col-sm-3 form-control form-control-lg",
+            placeholder: "Login"
+            // value={this.state.product.title}
+            , onChange: this.handleInputChange
+          })
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "div",
+          { className: "form-group row" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "label",
+            { className: "col-md-2 offset-md-1 col-sm-1 offset-sm-1 col-form-label" },
+            "\u041F\u0430\u0440\u043E\u043B\u044C"
+          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+            name: "password",
+            type: "password",
+            className: "col-md-4 col-sm-3 form-control form-control-lg",
+            placeholder: "password"
+            // value={this.state.product.key}
+            , onChange: this.handleInputChange
+          })
+        ),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "div",
+          { className: "row" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            "button",
+            {
+              type: "submit",
+              className: "btn btn-primary col-md-1 offset-md-3",
+              onClick: this.onSubmit
+            },
+            "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C"
+          )
+        )
+      )
+    );
+  }
+
+  render() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment,
+      null,
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        headerClass: "bg-warning"
+      }),
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        "main",
+        { className: "row" },
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+          "div",
+          { className: "col-md-10 offset-md-1 col-sm-12 bg-light paper" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Breadcrumbs_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], null),
+          this.renderForm()
+        )
+      ),
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageFooter_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], null)
     );
   }
 }
@@ -34159,7 +34511,14 @@ class PanelProductPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Comp
   loadData() {
     this.setState({ status: 'pending' });
 
-    fetch(`/api/product/${this.props.match.params.id}`).then(response => response.json()).then(json => {
+    fetch(`/api/product/${this.props.match.params.id}`, {
+      method: "get",
+      credentials: "same-origin",
+      // body: JSON.stringify(this.state.credentials),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(response => response.json()).then(json => {
       this.setState({
         product: {
           key: json.key,
@@ -34191,6 +34550,7 @@ class PanelProductPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Comp
     event.preventDefault();
     fetch(`/api/product/${this.props.match.params.id}`, {
       method: "put",
+      credentials: "same-origin",
       body: JSON.stringify(this.state.product),
       headers: {
         "Content-Type": "application/json"
@@ -34291,9 +34651,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PanelProductsPage; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_Nav_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Nav.jsx */ "./static/components/Nav.jsx");
-/* harmony import */ var _ProductCard_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProductCard.jsx */ "./static/pages/ProductCard.jsx");
-/* harmony import */ var _PanelProductForm_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PanelProductForm.jsx */ "./static/pages/PanelProductForm.jsx");
+/* harmony import */ var _components_PageHeader_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/PageHeader.jsx */ "./static/components/PageHeader.jsx");
+/* harmony import */ var _components_PageFooter_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/PageFooter.jsx */ "./static/components/PageFooter.jsx");
+/* harmony import */ var _components_ProductCard_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/ProductCard.jsx */ "./static/components/ProductCard.jsx");
+/* harmony import */ var _PanelProductForm_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PanelProductForm.jsx */ "./static/pages/PanelProductForm.jsx");
+/* harmony import */ var _components_Breadcrumbs_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Breadcrumbs.jsx */ "./static/components/Breadcrumbs.jsx");
+
+
 
 
 
@@ -34324,7 +34688,10 @@ class PanelProductsPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Com
 
   loadData() {
     this.setState({ status: 'pending' });
-    fetch("/api/product").then(res => res.json()).then(json => {
+    fetch("/api/product", {
+      method: "get",
+      credentials: "same-origin"
+    }).then(res => res.json()).then(json => {
       this.setState({
         products: json,
         status: 'ready'
@@ -34363,6 +34730,7 @@ class PanelProductsPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Com
     event.preventDefault();
     fetch(`/api/product`, {
       method: "post",
+      credentials: "same-origin",
       body: JSON.stringify(this.state.newProduct),
       headers: {
         "Content-Type": "application/json"
@@ -34389,14 +34757,6 @@ class PanelProductsPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Com
     });
   }
 
-  renderFormComponent() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PanelProductForm_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      product: this.state.newProduct,
-      changeHandler: this.handleInputChange,
-      submitHandler: this.onSave
-    });
-  }
-
   renderProducts() {
     if (this.state.status === 'error') {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
@@ -34420,7 +34780,7 @@ class PanelProductsPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Com
         "div",
         { className: "card-deck bg-light row mx-auto" },
         this.state.products.map(function (product) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ProductCard_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], { product: product, route: "panel/product", key: product._id });
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ProductCard_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], { product: product, route: "panel/product", key: product._id });
         })
       )
     );
@@ -34430,142 +34790,28 @@ class PanelProductsPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Com
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
       react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment,
       null,
-      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-        "header",
-        { className: "row bg-warning" },
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "nav",
-          { className: "col-md-10 offset-md-1 col-sm-12" },
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Nav_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
-            tabs: ["Каталог", "Доставка", "Гарантии", "Контакты"],
-            navClass: "nav"
-          })
-        )
-      ),
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        headerClass: "bg-warning"
+      }),
       react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
         "main",
         { className: "row" },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "div",
           { className: "col-md-10 offset-md-1 col-sm-12 bg-light paper" },
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            "nav",
-            { "aria-label": "breadcrumb" },
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-              "ol",
-              { className: "breadcrumb" },
-              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                "li",
-                { className: "breadcrumb-item" },
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                  "a",
-                  { href: "#" },
-                  "Home"
-                )
-              ),
-              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                "li",
-                { className: "breadcrumb-item" },
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                  "a",
-                  { href: "#" },
-                  "Library"
-                )
-              ),
-              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                "li",
-                { className: "breadcrumb-item active", "aria-current": "page" },
-                "Data"
-              )
-            )
-          ),
-          this.renderFormComponent(),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Breadcrumbs_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], null),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PanelProductForm_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            product: this.state.newProduct,
+            changeHandler: this.handleInputChange,
+            submitHandler: this.onSave
+          }),
           this.renderProducts()
         )
       ),
-      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-        "footer",
-        { className: "row bg-dark" },
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "div",
-          { className: "col-md-10 offset-md-1 col-sm-12" },
-          "\xA9 Codery Camp, 2019"
-        )
-      )
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageFooter_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], null)
     );
   }
 
-}
-
-/***/ }),
-
-/***/ "./static/pages/ProductCard.jsx":
-/*!**************************************!*\
-  !*** ./static/pages/ProductCard.jsx ***!
-  \**************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ProductCard; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-
-
-
-class ProductCard extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
-
-    render() {
-        const product = this.props.product;
-        const route = this.props.route;
-        const link = route === 'panel/product' ? `${product._id}` : `${product.key}-${product.slug}`;
-
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment,
-            null,
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                "div",
-                { className: "card col-md-3 offset-md-3 col-sm-4 offset-sm-1" },
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                    react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"],
-                    { to: `/${route}/${link}` },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", { className: "card-img", src: `/${product.img}`, alt: "Card image cap" })
-                ),
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                    "div",
-                    { className: "card-body-right" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                        "h5",
-                        { className: "card-title" },
-                        product.title
-                    ),
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                        "p",
-                        { className: "card-text" },
-                        product.description
-                    ),
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                        "p",
-                        { className: "card-text" },
-                        "\u0426\u0435\u043D\u0430: ",
-                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                            "span",
-                            { className: "card-price" },
-                            product.price,
-                            " \u0440\u0443\u0431."
-                        )
-                    ),
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                        react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"],
-                        { to: `/${route}/${link}` },
-                        "\u041A\u0443\u043F\u0438\u0442\u044C"
-                    )
-                )
-            )
-        );
-    }
 }
 
 /***/ }),
@@ -34708,8 +34954,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ProductsPage; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_Nav_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Nav.jsx */ "./static/components/Nav.jsx");
-/* harmony import */ var _ProductCard_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProductCard.jsx */ "./static/pages/ProductCard.jsx");
+/* harmony import */ var _components_PageHeader_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/PageHeader.jsx */ "./static/components/PageHeader.jsx");
+/* harmony import */ var _components_PageFooter_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/PageFooter.jsx */ "./static/components/PageFooter.jsx");
+/* harmony import */ var _components_ProductCard_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/ProductCard.jsx */ "./static/components/ProductCard.jsx");
+/* harmony import */ var _components_Breadcrumbs_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Breadcrumbs.jsx */ "./static/components/Breadcrumbs.jsx");
+
+
 
 
 
@@ -34765,7 +35015,7 @@ class ProductsPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
         "div",
         { className: "card-deck bg-light row mx-auto" },
         this.state.products.map(function (product) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ProductCard_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], { product: product, route: "product", key: product._id });
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ProductCard_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], { product: product, route: "product", key: product._id });
         })
       )
     );
@@ -34775,67 +35025,20 @@ class ProductsPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
       react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment,
       null,
-      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-        "header",
-        { className: "row bg-primary" },
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "nav",
-          { className: "col-md-8 offset-md-2 col-sm-10 offset-sm-1" },
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Nav_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
-            tabs: ["Каталог", "Доставка", "Гарантии", "Контакты"],
-            navClass: "nav"
-          })
-        )
-      ),
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        headerClass: "bg-primary"
+      }),
       react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
         "main",
         { className: "row" },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
           "div",
           { className: "col-md-8 offset-md-2 col-sm-10 offset-sm-1 bg-light paper" },
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            "nav",
-            { "aria-label": "breadcrumb" },
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-              "ol",
-              { className: "breadcrumb" },
-              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                "li",
-                { className: "breadcrumb-item" },
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                  "a",
-                  { href: "#" },
-                  "Home"
-                )
-              ),
-              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                "li",
-                { className: "breadcrumb-item" },
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                  "a",
-                  { href: "#" },
-                  "Library"
-                )
-              ),
-              react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                "li",
-                { className: "breadcrumb-item active", "aria-current": "page" },
-                "Data"
-              )
-            )
-          ),
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Breadcrumbs_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], null),
           this.renderProducts()
         )
       ),
-      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-        "footer",
-        { className: "row bg-dark" },
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-          "div",
-          { className: "col-md-8 offset-md-2 col-sm-10 offset-sm-1" },
-          "\xA9 Codery Camp, 2019"
-        )
-      )
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageFooter_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], null)
     );
   }
 

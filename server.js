@@ -112,6 +112,7 @@ app.get('/product/:key_and_slug', serveSPA);
 app.get('/panel', serveSPA);//админка
 app.get('/panel/product', serveSPA);
 app.get('/panel/product/:id', serveSPA);
+app.get('/panel/login', serveSPA);
 
 const sendAccessDenied = (req, res) => {
     res.status(403).send(`Отказано в доступе`).end();
@@ -160,16 +161,15 @@ const checkToken = (req, res, next) => {
     }
 }
 
-app.get('/api/login', (req, res) => {
-    let result = 'Пользователь не авторизован';
-    if (req.query.email && req.query.password) {
+app.post('/api/login', (req, res) => {
+    if (req.body.login && req.body.password) {
         //получен GET-запрос вида /api/login?email=value&password=value
-        DBService.getUserByEmail(req.query.email)
+        DBService.getUserByEmail(req.body.login)
             .then(user => {
                 if (checkPasswordHash(req.query.password, user.passwordHash)) {
-                    result = `Установка cookie: URL ${req.originalUrl}`;
-                    res.set({ 'Set-Cookie': `token=${token(req.query.email)}; Path=/` });
-                    res.status(200).send(result).end();
+                    // res.set({ 'Set-Cookie': `token=${token(req.body.login)}; Path=/` });
+                    res.cookie('token', token(req.body.login), { path: '/', encode: String } );
+                    res.json(user);
                 } else {
                     throw Error;
                 }
