@@ -26,6 +26,7 @@ export default class PanelProductsPage extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.onSave = this.onSave.bind(this);
     this.loadData = this.loadData.bind(this);
+    this.clearNewProduct = this.clearNewProduct.bind(this);
   }
 
   loadData() {
@@ -94,7 +95,6 @@ export default class PanelProductsPage extends React.Component {
           }
         });
         this.state.products.push(this.state.newProduct);
-        // this.forceUpdate();
         this.clearNewProduct();
       })
       .catch(err => {

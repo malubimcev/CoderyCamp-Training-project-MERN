@@ -21,21 +21,22 @@ export default class ProductPage extends React.Component {
     const slug = slugArray ? slugArray.join('-') : '';
     const params = queryString.stringify({key, slug});
     
-    fetch(`/api/product?${params}`)
-      .then(function(response) {
-        return response.json();
-      }.bind(this))
-      .then(function(json) {
+    fetch(`/api/product?${params}`, {
+      method: "get",
+      credentials: "same-origin"
+    })
+      .then(response => response.json())
+      .then(json => {
         this.setState({
           title: json.title,
           description: json.description,
           img: json.img,
           status: 'ready'
         });
-      }.bind(this))
-      .catch(function(err){
+      })
+      .catch(err => {
         this.setState({status: 'error'});
-      }.bind(this));
+      })
   }
   
   componentDidMount() {

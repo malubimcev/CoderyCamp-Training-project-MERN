@@ -16,19 +16,23 @@ export default class ProductsPage extends React.Component {
 
     loadData() {
       this.setState({status: 'pending'});
-      fetch("/api/product")
-        .then(function(response) {
-          return response.json();
-        }.bind(this))
-        .then(function(json) {
+      fetch("/api/product", {
+        method: "get",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(response => response.json())
+        .then(json => {
           this.setState({
             products: json,
             status: 'ready'
           });
-        }.bind(this))
-        .catch(function(err){
+        })
+        .catch(err => {
           this.setState({status: 'error'});
-        }.bind(this));
+        });
     }
 
     componentDidMount() {
