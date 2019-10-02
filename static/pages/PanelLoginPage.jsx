@@ -16,41 +16,36 @@ export default class PanelLoginPage extends React.Component {
     };
 
     this.onSubmit = this.onSubmit.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.renderErrorAlert = this.renderErrorAlert.bind(this);
+    this.renderPendingAlert = this.renderPendingAlert.bind(this);
+    this.renderLoggedAlert = this.renderLoggedAlert.bind(this);
+    this.renderForm = this.renderForm.bind(this);
   }
 
-  componentDidMount() {
-    // this.loadData();
-  }
-
-  clearUserData() {
-    this.setState({
-      credentials: {
-        login: '',
-        password: ''
-      },
-      status: 'pending'
-    });
+  handleInputChange(event) {
+    const name = event.target.name;
+    this.state.credentials[name] = event.target.value;
     this.forceUpdate();
   }
 
   onSubmit(event) {
     event.preventDefault();
     this.setState({
-      status: 'idle'
+      status: 'pending'
     });
-    fetch(`/api/login`, {
-      method: "post",
-      credentials: "same-origin",
+    console.log(this.state);
+    fetch('/api/login', {
+      method: 'post',
+      credentials: 'same-origin',
       body: JSON.stringify(this.state.credentials),
       headers: {
         "Content-Type": "application/json"
       }
     })
-      .then(res => {
-        console.log(res);
-        res.json();
-      })
+      .then(res => res.json())
       .then(json => {
+        console.log(json);
         this.setState({
           status: 'logged'
         });
@@ -77,7 +72,7 @@ export default class PanelLoginPage extends React.Component {
               type="text"
               className="col-md-4 col-sm-3 form-control form-control-lg"
               placeholder="Login"
-              // value={this.state.produc.title}
+              //value={this.state.credentials.login}
               onChange={this.handleInputChange}
             />
           </div>
@@ -89,7 +84,8 @@ export default class PanelLoginPage extends React.Component {
               name="password"
               type="password"
               className="col-md-4 col-sm-3 form-control form-control-lg"
-              placeholder="password"
+              placeholder="Password"
+              //value={this.state.credentials.password}
               onChange={this.handleInputChange}
             />
           </div>
@@ -119,6 +115,12 @@ export default class PanelLoginPage extends React.Component {
     </div>;    
   }
 
+  renderLoggedAlert() {
+    return <div className="alert alert-primary" role="alert">
+      Пользователь авторизован.
+    </div>;    
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -131,6 +133,7 @@ export default class PanelLoginPage extends React.Component {
             <Breadcrumbs />
             { this.state.status === "error" && this.renderErrorAlert() }
             { this.state.status === "pending" && this.renderPendingAlert() }
+            { this.state.status === "logged" && this.renderLoggedAlert() }
             { this.state.status !== "logged" && this.renderForm() }
           </div>
         </main>

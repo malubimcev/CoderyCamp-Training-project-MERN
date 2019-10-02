@@ -18,10 +18,7 @@ export default class ProductsPage extends React.Component {
       this.setState({status: 'pending'});
       fetch("/api/product", {
         method: "get",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json"
-        }
+        credentials: "same-origin"
       })
         .then(response => response.json())
         .then(json => {

@@ -27,11 +27,7 @@ export default class PanelProductPage extends React.Component {
     
     fetch(`/api/product/${this.props.match.params.id}`, {
       method: "get",
-      credentials: "same-origin",
-      //body: JSON.stringify(this.state.credentials),
-      headers: {
-        "Content-Type": "application/json"
-      }
+      credentials: "same-origin"
     })
       .then(response => response.json())
       .then(json => {

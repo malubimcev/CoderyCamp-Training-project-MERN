@@ -34069,39 +34069,34 @@ class PanelLoginPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
     };
 
     this.onSubmit = this.onSubmit.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.renderErrorAlert = this.renderErrorAlert.bind(this);
+    this.renderPendingAlert = this.renderPendingAlert.bind(this);
+    this.renderLoggedAlert = this.renderLoggedAlert.bind(this);
+    this.renderForm = this.renderForm.bind(this);
   }
 
-  componentDidMount() {
-    // this.loadData();
-  }
-
-  clearUserData() {
-    this.setState({
-      credentials: {
-        login: '',
-        password: ''
-      },
-      status: 'pending'
-    });
+  handleInputChange(event) {
+    const name = event.target.name;
+    this.state.credentials[name] = event.target.value;
     this.forceUpdate();
   }
 
   onSubmit(event) {
     event.preventDefault();
     this.setState({
-      status: 'idle'
+      status: 'pending'
     });
-    fetch(`/api/login`, {
-      method: "post",
-      credentials: "same-origin",
+    console.log(this.state);
+    fetch('/api/login', {
+      method: 'post',
+      credentials: 'same-origin',
       body: JSON.stringify(this.state.credentials),
       headers: {
         "Content-Type": "application/json"
       }
-    }).then(res => {
-      console.log(res);
-      res.json();
-    }).then(json => {
+    }).then(res => res.json()).then(json => {
+      console.log(json);
       this.setState({
         status: 'logged'
       });
@@ -34137,7 +34132,7 @@ class PanelLoginPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
               type: "text",
               className: "col-md-4 col-sm-3 form-control form-control-lg",
               placeholder: "Login"
-              // value={this.state.produc.title}
+              //value={this.state.credentials.login}
               , onChange: this.handleInputChange
             })
           ),
@@ -34153,8 +34148,9 @@ class PanelLoginPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
               name: "password",
               type: "password",
               className: "col-md-4 col-sm-3 form-control form-control-lg",
-              placeholder: "password",
-              onChange: this.handleInputChange
+              placeholder: "Password"
+              //value={this.state.credentials.password}
+              , onChange: this.handleInputChange
             })
           ),
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
@@ -34191,6 +34187,14 @@ class PanelLoginPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
     );
   }
 
+  renderLoggedAlert() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+      "div",
+      { className: "alert alert-primary", role: "alert" },
+      "\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C \u0430\u0432\u0442\u043E\u0440\u0438\u0437\u043E\u0432\u0430\u043D."
+    );
+  }
+
   render() {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
       react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment,
@@ -34207,6 +34211,7 @@ class PanelLoginPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Breadcrumbs_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], null),
           this.state.status === "error" && this.renderErrorAlert(),
           this.state.status === "pending" && this.renderPendingAlert(),
+          this.state.status === "logged" && this.renderLoggedAlert(),
           this.state.status !== "logged" && this.renderForm()
         )
       ),
@@ -34553,11 +34558,7 @@ class PanelProductPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Comp
 
     fetch(`/api/product/${this.props.match.params.id}`, {
       method: "get",
-      credentials: "same-origin",
-      // body: JSON.stringify(this.state.credentials),
-      headers: {
-        "Content-Type": "application/json"
-      }
+      credentials: "same-origin"
     }).then(response => response.json()).then(json => {
       this.setState({
         product: {
@@ -34724,6 +34725,7 @@ class PanelProductsPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Com
     this.handleInputChange = this.handleInputChange.bind(this);
     this.onSave = this.onSave.bind(this);
     this.loadData = this.loadData.bind(this);
+    this.clearNewProduct = this.clearNewProduct.bind(this);
   }
 
   loadData() {
@@ -34787,7 +34789,6 @@ class PanelProductsPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Com
         }
       });
       this.state.products.push(this.state.newProduct);
-      // this.forceUpdate();
       this.clearNewProduct();
     }).catch(err => {
       this.setState({
@@ -34892,18 +34893,19 @@ class ProductPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component
     const slug = slugArray ? slugArray.join('-') : '';
     const params = queryString.stringify({ key, slug });
 
-    fetch(`/api/product?${params}`).then(function (response) {
-      return response.json();
-    }.bind(this)).then(function (json) {
+    fetch(`/api/product?${params}`, {
+      method: "get",
+      credentials: "same-origin"
+    }).then(response => response.json()).then(json => {
       this.setState({
         title: json.title,
         description: json.description,
         img: json.img,
         status: 'ready'
       });
-    }.bind(this)).catch(function (err) {
+    }).catch(err => {
       this.setState({ status: 'error' });
-    }.bind(this));
+    });
   }
 
   componentDidMount() {
@@ -35016,16 +35018,17 @@ class ProductsPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
 
   loadData() {
     this.setState({ status: 'pending' });
-    fetch("/api/product").then(function (response) {
-      return response.json();
-    }.bind(this)).then(function (json) {
+    fetch("/api/product", {
+      method: "get",
+      credentials: "same-origin"
+    }).then(response => response.json()).then(json => {
       this.setState({
         products: json,
         status: 'ready'
       });
-    }.bind(this)).catch(function (err) {
+    }).catch(err => {
       this.setState({ status: 'error' });
-    }.bind(this));
+    });
   }
 
   componentDidMount() {
