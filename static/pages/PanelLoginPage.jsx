@@ -34,7 +34,6 @@ export default class PanelLoginPage extends React.Component {
     this.setState({
       status: 'pending'
     });
-    console.log(this.state);
     fetch('/api/login', {
       method: 'post',
       credentials: 'same-origin',
@@ -45,7 +44,6 @@ export default class PanelLoginPage extends React.Component {
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json);
         this.setState({
           status: 'logged'
         });

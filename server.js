@@ -160,39 +160,14 @@ const checkToken = (req, res, next) => {
     }
 }
 
-// app.get('/api/login', (req, res) => {
-//     if (req.query.login && req.query.password) {
-//         //получен GET-запрос вида /api/login?email=value&password=value
-//         DBService.getUserByEmail(req.query.login)
-//             .then(user => {
-//                 if (checkPasswordHash(req.query.password, user.passwordHash)) {
-//                     // res.set({ 'Set-Cookie': `token=${token(req.body.login)}; Path=/` });
-//                     res.cookie('token', token(req.query.login), { path: '/', encode: String } );
-//                     res.json(user);
-//                 } else {
-//                     throw Error;
-//                 }
-//             })
-//             .catch(err => {
-//                 sendAccessDenied(req, res);
-//             });
-//     } else {
-//         serveNotFound(req, res);
-//     }
-// });
-
 app.post('/api/login', (req, res) => {
-    console.log(`body = ${req.body.toString()}`);
-    console.log(`login / password = ${req.body.login} / ${req.body.password}`);
     if (req.body.login && req.body.password) {
         const [login, password] = [req.body.login, req.body.password];
-        console.log(`login / password = ${login} / ${password}`);
         //получен POST-запрос на /api/login:
         // { login: login, password: password }
         DBService.getUserByEmail(login)
             .then(user => {
                 if (checkPasswordHash(password, user.passwordHash)) {
-                    // res.set({ 'Set-Cookie': `token=${token(req.body.login)}; Path=/` });
                     res.cookie('token', token(login), { path: '/', encode: String } );
                     res.json(user);
                 } else {
