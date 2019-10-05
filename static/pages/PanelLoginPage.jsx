@@ -3,6 +3,9 @@ import PageHeader from "../components/PageHeader.jsx";
 import PageFooter from "../components/PageFooter.jsx";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
 
+const Cookie = require('cookie');
+const jwt = require('jsonwebtoken');
+
 export default class PanelLoginPage extends React.Component {
   constructor(props) {
     super(props);
@@ -30,6 +33,34 @@ export default class PanelLoginPage extends React.Component {
   }
 
   onSubmit(event) {
+    event.preventDefault();
+    this.setState({
+      status: 'pending'
+    });
+    fetch('/api/login', {
+      method: 'post',
+      credentials: 'same-origin',
+      body: JSON.stringify(this.state.credentials),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          status: 'logged'
+        });
+        this.forceUpdate();
+      })
+      .catch(err => {
+        this.setState({
+          status: 'error'
+        });
+        console.log(err.message);
+      });
+  }
+
+  onLogout(event) {
     event.preventDefault();
     this.setState({
       status: 'pending'
@@ -115,7 +146,19 @@ export default class PanelLoginPage extends React.Component {
 
   renderLoggedAlert() {
     return <div className="alert alert-primary" role="alert">
-      Пользователь авторизован.
+      {`Пользователь ${this.state.credentials.login} авторизован.`}
+    </div>;    
+  }
+
+  renderLogoutButton() {
+    return <div className="row">
+      <button
+        type="submit"
+        className="btn btn-primary col-md-1 offset-md-3"
+        onClick={this.onLogout}
+      >
+        Выйти
+      </button>
     </div>;    
   }
 
@@ -132,6 +175,7 @@ export default class PanelLoginPage extends React.Component {
             { this.state.status === "error" && this.renderErrorAlert() }
             { this.state.status === "pending" && this.renderPendingAlert() }
             { this.state.status === "logged" && this.renderLoggedAlert() }
+            { this.state.status === "logged" && this.renderLogoutButton() }
             { this.state.status !== "logged" && this.renderForm() }
           </div>
         </main>
