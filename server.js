@@ -107,12 +107,6 @@ app.get('/', serveSPA);
 app.get('/product', serveSPA);
 app.get('/product/:key_and_slug', serveSPA);
 
-
-app.get('/panel', serveSPA);//админка
-app.get('/panel/product', serveSPA);
-app.get('/panel/product/:id', serveSPA);
-app.get('/panel/login', serveSPA);
-
 const sendAccessDenied = (req, res) => {
     res.status(403).send(`Отказано в доступе`).end();
 }
@@ -133,8 +127,6 @@ const getHash = (password) => {
     const saltRounds = 10;
     return bcrypt.hashSync(password, saltRounds);    
 }
-
-const checkPasswordHash = password => bcrypt.compareSync(password, getHash(password));
 
 const checkToken = (req, res, next) => {
     try {
@@ -160,6 +152,15 @@ const checkToken = (req, res, next) => {
     }
 }
 
+//админка
+app.get('/panel', checkToken);
+app.get('/panel/product', checkToken);
+app.get('/panel/product/:id', checkToken);
+app.get('/panel', serveSPA);
+app.get('/panel/product', serveSPA);
+app.get('/panel/product/:id', serveSPA);
+app.get('/panel/login', serveSPA);
+
 app.post('/api/login', (req, res) => {
     if (req.body.login && req.body.password) {
         const [login, password] = [req.body.login, req.body.password];
@@ -167,7 +168,7 @@ app.post('/api/login', (req, res) => {
         // { login: login, password: password }
         DBService.getUserByEmail(login)
             .then(user => {
-                if (checkPasswordHash(password, user.passwordHash)) {
+                if (bcrypt.compareSync(password, user.passwordHash)) {
                     res.cookie('token', token(login), { path: '/', encode: String } );
                     res.json(user);
                 } else {

@@ -19,11 +19,43 @@ export default class PanelLoginPage extends React.Component {
     };
 
     this.onSubmit = this.onSubmit.bind(this);
+    this.onLogout = this.onLogout.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.renderErrorAlert = this.renderErrorAlert.bind(this);
     this.renderPendingAlert = this.renderPendingAlert.bind(this);
     this.renderLoggedAlert = this.renderLoggedAlert.bind(this);
     this.renderForm = this.renderForm.bind(this);
+  }
+
+  componentDidMount() {
+    this.checkLoginStatus();
+  }
+
+  checkLoginStatus() {
+    try {
+      const cookies = Cookie.parse(document.cookie);
+      const payload = jwt.decode(cookies.token);
+      const timestampInMilliseconds = new Date().getTime();
+      if (payload.exp && (1000 * payload.exp > timestampInMilliseconds)) {
+        this.setState({
+          credentials: {
+            login: payload.email,
+            password: ''
+          },
+          status: 'logged'
+        });  
+      } else {
+        this.setState({
+          status: 'idle'
+        });        
+      }
+    } catch (err) {
+      console.log(err.message);
+      this.setState({
+        status: 'idle'
+      });
+    }
+    this.forceUpdate();
   }
 
   handleInputChange(event) {
@@ -48,6 +80,10 @@ export default class PanelLoginPage extends React.Component {
       .then(res => res.json())
       .then(json => {
         this.setState({
+          credentials: {
+            login: json.email,
+            password: ''
+          },
           status: 'logged'
         });
         this.forceUpdate();
@@ -63,29 +99,9 @@ export default class PanelLoginPage extends React.Component {
   onLogout(event) {
     event.preventDefault();
     this.setState({
-      status: 'pending'
+      status: 'idle'
     });
-    fetch('/api/login', {
-      method: 'post',
-      credentials: 'same-origin',
-      body: JSON.stringify(this.state.credentials),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(res => res.json())
-      .then(json => {
-        this.setState({
-          status: 'logged'
-        });
-        this.forceUpdate();
-      })
-      .catch(err => {
-        this.setState({
-          status: 'error'
-        });
-        console.log(err.message);
-      });
+    document.cookie = 'token=; Path=/; Max-Age=0;';
   }
 
   renderForm() {
@@ -138,6 +154,12 @@ export default class PanelLoginPage extends React.Component {
     </div>;    
   }
 
+  renderIdleAlert() {
+    return <div className="alert alert-primary" role="alert">
+      Авторизация пользователя
+    </div>;    
+  }
+
   renderPendingAlert() {
     return <div className="alert alert-secondary" role="alert">
       Загрузка...
@@ -145,7 +167,7 @@ export default class PanelLoginPage extends React.Component {
   }
 
   renderLoggedAlert() {
-    return <div className="alert alert-primary" role="alert">
+    return <div className="alert alert-success" role="alert">
       {`Пользователь ${this.state.credentials.login} авторизован.`}
     </div>;    
   }
@@ -173,6 +195,7 @@ export default class PanelLoginPage extends React.Component {
           <div className="col-md-10 offset-md-1 col-sm-12 bg-light paper">
             <Breadcrumbs />
             { this.state.status === "error" && this.renderErrorAlert() }
+            { this.state.status === "idle" && this.renderIdleAlert() }
             { this.state.status === "pending" && this.renderPendingAlert() }
             { this.state.status === "logged" && this.renderLoggedAlert() }
             { this.state.status === "logged" && this.renderLogoutButton() }
