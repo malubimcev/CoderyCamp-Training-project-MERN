@@ -14,7 +14,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-react-app": "^3.1.2",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "clean-webpack-plugin": "^1.0.0",
     "cookie": "^0.4.0",
     "cookie-parser": "^1.4.4",
